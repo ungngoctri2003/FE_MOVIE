@@ -35,6 +35,9 @@ import CheckoutTemplate from "./templates/CheckoutTemplate/CheckoutTemplate";
 import ModalTrailer from "./components/Modal/ModalTrailer";
 import Profile from "./pages/Client/Profile/Profile";
 import GroupCinemaClient from "./pages/Client/GroupCinemaClient/GroupCinema";
+import Questions from "./pages/Client/Questions/Questions";
+import PrivacyPolicy from "./pages/Client/PrivacyPolicy/PrivacyPolicy";
+import GeneralTerms from "./pages/Client/GeneralTerms/GeneralTerms";
 import SystemCinema from "./pages/Client/SystemCinema/SystemCinema";
 import DetailsCinema from "./pages/Client/DetailsCinema/DetailsCinema";
 import Ticket from "./pages/Admin/Ticket/Ticket";
@@ -48,6 +51,7 @@ import Banner from "./pages/Admin/Banner";
 import CreateBanner from "./pages/Admin/Banner/Create";
 import EditBanner from "./pages/Admin/Banner/Edit";
 import RoomPreview from "./components/Room/Preview";
+import ScrollButton from "./components/ScrollTop/ScrollButton";
 const socket = io.connect(`${DOMAIN_STATIC_FILE}`);
 export const history = createBrowserHistory();
 export default function App() {
@@ -142,34 +146,36 @@ export default function App() {
           exact
           Component={TypeUserEdit}
         />
+
         {/* //! Banner */}
         <Template path="/Admin/Banners" exact Component={Banner} />
         <Template path="/Admin/Banners/Create" exact Component={CreateBanner} />
         <Template path="/Admin/Banners/Edit/:id" exact Component={EditBanner} />
         {/* Ticket */}
         <Template path="/Admin/Tickets/:id" exact Component={Ticket} />
-
         {/* //! */}
         <UserTemplate path="/DetailsFilm/:id" exact Component={DetailsFilm} />
         <UserTemplate path="/Home" exact Component={HomeClient} />
         <UserTemplate path="/Profile" exact Component={Profile} />
         <UserTemplate path="/GroupCinema" exact Component={GroupCinemaClient} />
+        <UserTemplate path="/Questions" exact Component={Questions} />
+        <UserTemplate path="/PrivacyPolicy" exact Component={PrivacyPolicy} />
+        <UserTemplate path="/GeneralTerms" exact Component={GeneralTerms} />
         <UserTemplate path="/SystemCinema/:id" exact Component={SystemCinema} />
         <UserTemplate
           path="/DetailsCinema/:id"
           exact
           Component={DetailsCinema}
         />
-
         <CheckoutTemplate
           path="/Checkout/:id"
           exact
           Component={Checkout}
           socket={socket}
         />
-
         <UserTemplate path="/" Component={HomeClient} />
       </Switch>
+      <ScrollButton />
     </Router>
   );
 }

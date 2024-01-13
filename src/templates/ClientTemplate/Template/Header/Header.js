@@ -58,7 +58,9 @@ export default function Header(props) {
                 className="ant-dropdown-link text-white"
                 onClick={(e) => e.preventDefault()}
               >
-                <span className="mr-3">{userLogin.userName}</span>
+                <span className="mr-3 text-xl capitalize ">
+                  Xin chào: {userLogin.userName}
+                </span>
                 <DownOutlined />
               </a>
             </Dropdown>
@@ -87,14 +89,10 @@ export default function Header(props) {
 
   return (
     <div className="relative">
-      <nav className=" border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800 text-coolGray-800 fixed z-10 w-full bg-black bg-opacity-40">
+      <nav className=" border-gray-200 px-2 sm:px-4 py-5 rounded dark:bg-gray-800 text-coolGray-800 fixed z-10 w-full bg-black bg-opacity-40">
         <div className="lg:container flex flex-wrap justify-between items-center mx-auto">
           <NavLink to="/home" className="flex items-center">
-            <img
-              src="tix.png"
-              className={`mr-3 h-6 sm:h-9 ${styles.logo}`}
-              alt="Logo"
-            />
+            <img src="beta.png" className={``} alt="Logo" />
           </NavLink>
 
           <div
@@ -113,7 +111,7 @@ export default function Header(props) {
               <li>
                 <NavLink
                   to="/GroupCinema"
-                  className={`${styles.rs_header} block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 text-white md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" activeClassName='text-blue-700`}
+                  className={`${styles.rs_header} block py-2 pr-4 pl-3  bg-blue-700 rounded md:bg-transparent text-white md:p-0 dark:text-white" aria-current="page" activeClassName='text-yellow-700`}
                 >
                   Cụm Rạp
                 </NavLink>

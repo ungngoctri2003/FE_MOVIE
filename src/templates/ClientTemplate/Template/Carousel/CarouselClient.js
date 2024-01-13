@@ -12,12 +12,13 @@ export default function CarouselClient(props) {
     dispatch(GetBannerAction());
   }, []);
   const contentStyle = {
+    marginTop: "70px",
     height: "625px",
     color: "#fff",
     lineHeight: "160px",
     textAlign: "center",
     backgroundPosition: "center",
-    // backgroundSize:'100%',
+    backgroundSize: "100%",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };

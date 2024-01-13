@@ -1,6 +1,7 @@
 .logo{
-    width: 4vw;
-    height: 4vw;
+    width: 8vw;
+    height: 3.5vw;
+    object-fit: cover;
 }
 /* .section-phim-custom{
     width: 14vw;
