@@ -1,4 +1,5 @@
 import { quanLyNguoiDungServices } from "../../services/QuanLyNguoiDungServices";
+import { passwordServices } from "../../services/PasswordServices";
 import { message } from "antd";
 import { TOKEN } from "../../utils/Settings/config";
 import {
@@ -10,6 +11,53 @@ import { history } from "./../../App";
 import Cookies from "js-cookie";
 import { ErrorUSer } from "../../constants/error";
 import { DISPLAY_LOADING, HIDDEN_LOADING } from "../Types/LoadingType";
+export const forgotPasswordAction = (email) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: DISPLAY_LOADING,
+      });
+      const result = await passwordServices.forgotPassword(email);
+      if (result.status === 201) {
+        dispatch({
+          type: HIDDEN_LOADING,
+        });
+        message.success("Vui lòng kiểm tra email để đặt lại mật khẩu");
+      }
+    } catch (error) {
+      message.error("Lỗi khi yêu cầu đặt lại mật khẩu");
+      dispatch({
+        type: HIDDEN_LOADING,
+      });
+    }
+  };
+};
+
+export const resetPasswordAction = (resetToken, newPassword) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: DISPLAY_LOADING,
+      });
+      const result = await passwordServices.resetPassword(
+        resetToken,
+        newPassword
+      );
+      if (result.status === 200) {
+        dispatch({
+          type: HIDDEN_LOADING,
+        });
+        message.success("Đặt lại mật khẩu thành công");
+        // Redirect hoặc thực hiện các công việc khác sau khi đặt lại mật khẩu thành công
+      }
+    } catch (error) {
+      message.error("Lỗi khi đặt lại mật khẩu");
+      dispatch({
+        type: HIDDEN_LOADING,
+      });
+    }
+  };
+};
 export const SendVerifyEmailAction = (email, idUser) => {
   return async (dispatch) => {
     try {

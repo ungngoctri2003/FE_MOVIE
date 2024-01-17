@@ -19,7 +19,7 @@ function HomeMenu(props) {
   return (
     <>
       <Tabs
-        className="border rounded mx-2 mt-10 w-100% max-h-tab overflow-auto"
+        className=" border rounded mx-2 mt-10 w-100% max-h-tab overflow-auto"
         tabPosition={state.tabPosition}
       >
         {lichChieu?.map((item, index) => {
@@ -32,6 +32,7 @@ function HomeMenu(props) {
                     src={`${DOMAIN_STATIC_FILE}${item.logo}`}
                     alt={`${DOMAIN_STATIC_FILE}${item.logo}`}
                   />
+                  <p className="text-base pt-2">{`${item.groupName}`}</p>
                 </div>
               }
               key={index}

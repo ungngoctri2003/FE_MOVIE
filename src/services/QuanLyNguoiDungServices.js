@@ -1,5 +1,5 @@
 import { baseServices } from "./baseServices";
-
+import { passwordServices } from "./PasswordServices";
 export class QuanLyNguoiDungServices extends baseServices {
   // eslint-disable-next-line no-useless-constructor
   constructor() {
@@ -34,6 +34,14 @@ export class QuanLyNguoiDungServices extends baseServices {
   };
   xoaNguoiDung = (id) => {
     return this.delete(`users/${id}`);
+  };
+  // Thêm các hàm mới cho forgotPassword và resetPassword
+  forgotPassword = (email) => {
+    return passwordServices.forgotPassword(email);
+  };
+
+  resetPassword = (resetToken, newPassword) => {
+    return passwordServices.resetPassword(resetToken, newPassword);
   };
 }
 

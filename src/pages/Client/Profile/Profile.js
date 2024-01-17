@@ -47,7 +47,7 @@ export function DetailsProfile(props) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      type: userEdit?.typeUser?.type,
+      typeUser: userEdit?.type_user?.id,
       email: userEdit.email,
       userName: userEdit.userName,
       password: "",

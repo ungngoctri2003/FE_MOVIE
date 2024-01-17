@@ -50,7 +50,7 @@ export default function Film(props) {
               });
             }}
           >
-            <div className=" rounded-full cursor-pointer">
+            <div className="rounded-full cursor-pointer">
               <button>
                 <PlayCircleOutlined
                   style={{ fontSize: "50px", color: "#fff", opacity: 0.7 }}

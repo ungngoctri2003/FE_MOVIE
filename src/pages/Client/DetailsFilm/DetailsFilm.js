@@ -38,12 +38,12 @@ export default function DetailsFilm(props) {
           <div className="col-span-5 col-start-3">
             <div className="grid grid-cols-3">
               <img
-                style={{ width: "100%", height: 250 }}
+                style={{ width: "100%", height: 400 }}
                 src={`${DOMAIN_STATIC_FILE}${phimEdit.imgFilm}`}
                 alt={`${phimEdit.imgFilm}`}
               />
               <div className="flex flex-col  justify-center ml-5 col-span-2">
-                <p className="text-2xl font-bold">{phimEdit.nameFilm}</p>
+                <p className="text-3xl font-bold">{phimEdit.nameFilm}</p>
                 <p>{phimEdit.description}</p>
                 <p>{moment(phimEdit.showtime).format("DD-MM-YYYY hh:mm")}</p>
               </div>
@@ -79,6 +79,7 @@ export default function DetailsFilm(props) {
                               src={`${DOMAIN_STATIC_FILE}${rapChieu.logo}`}
                               alt={rapChieu.logo}
                             />
+                            <p className="text-base pt-2">{`${rapChieu.groupName}`}</p>
                           </div>
                         }
                       >
@@ -97,6 +98,7 @@ export default function DetailsFilm(props) {
                                       src={`${DOMAIN_STATIC_FILE}${rap.logo}`}
                                       alt={`${rap.logo}`}
                                     />
+
                                     <div className="text-black text-left ml-3">
                                       <p>
                                         {_.truncate(rap.name, {
@@ -147,10 +149,37 @@ export default function DetailsFilm(props) {
                 </Tabs>
               </TabPane>
               <TabPane tab="Chi tiết" key="2">
-                Chi tiết
+                <div className="col-span-5 col-start-3">
+                  <div className="grid grid-cols-3 px-5">
+                    <img
+                      style={{ width: "100%", height: "400px" }}
+                      src={`${DOMAIN_STATIC_FILE}${phimEdit.imgFilm}`}
+                      alt={`${phimEdit.imgFilm}`}
+                    />
+                    <div className="flex flex-col  justify-center ml-5 col-span-2">
+                      <p className="text-2xl font-bold">{phimEdit.nameFilm}</p>
+                      <p className="text-2xl font-bold">
+                        Đánh giá: {phimEdit.rate} sao
+                      </p>
+                      <p className="text-2xl font-bold">
+                        Tác giả: {phimEdit.actor}
+                      </p>
+
+                      <p className="text-2xl">{phimEdit.description}</p>
+                      <p className="text-xl">
+                        {moment(phimEdit.showtime).format("DD-MM-YYYY hh:mm")}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </TabPane>
               <TabPane tab="Liên hệ" key="3">
-                Liên hệ
+                <h2 className="text-xl mx-5">
+                  Nếu Quý khách có gặp bất cứ vấn đề nào liên quan tới việc đặt
+                  vé online, vui lòng liên hệ fanpage Facebook của Beta Cinemas
+                  hoặc gọi điện tới hotline 0934 632 682 để được hỗ trợ nhanh
+                  nhất.
+                </h2>
               </TabPane>
             </Tabs>
           </div>
