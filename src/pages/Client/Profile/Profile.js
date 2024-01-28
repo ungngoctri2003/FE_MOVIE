@@ -23,7 +23,7 @@ export default function Profile(props) {
   const { TabPane } = Tabs;
   return (
     <div className="py-20 container ">
-      <Tabs defaultActiveKey="1" centered>
+      <Tabs className="dark:text-white" defaultActiveKey="1" centered>
         <TabPane tab="Thông tin cá nhân" key="1">
           <DetailsProfile {...props} />
         </TabPane>
@@ -149,6 +149,7 @@ export function DetailsProfile(props) {
             <div className="flex flex-wrap -mx-3 mb-6 cursor-pointer hover:text-red-700">
               <div className="w-full  px-3 mb-6 md:mb-0">
                 <p
+                  className="dark:text-white dark:hover:text-red-700"
                   onClick={() => {
                     dispatch(
                       SendVerifyEmailAction(userEdit.email, userEdit.id)
@@ -213,21 +214,21 @@ export function BookingHistory(props) {
             </div>
 
             <div className="flex flex-col justify-between text-base ">
-              <p>{`Tên phim : ${ticket.nameFilm} `}</p>
-              <p>{`Tên Rạp : ${ticket.groupName} / ${ticket.cinemaName}`}</p>
-              <p>{`Phòng : ${ticket.roomName} `}</p>
-              <p>
+              <p className="dark:text-white">{`Tên phim : ${ticket.nameFilm} `}</p>
+              <p className="dark:text-white">{`Tên Rạp : ${ticket.groupName} / ${ticket.cinemaName}`}</p>
+              <p className="dark:text-white">{`Phòng : ${ticket.roomName} `}</p>
+              <p className="dark:text-white">
                 {`Ngày đặt : ${moment(
                   _.head(ticket.lstTicket).createdAt
                 ).format("DD-MM-YYYY HH:mm A")}`}{" "}
               </p>
-              <p>
+              <p className="dark:text-white">
                 {`Ngày Chiếu : ${moment(ticket.showDate).format(
                   "DD-MM-YYYY HH:mm A"
                 )}`}{" "}
               </p>
               <div className="flex">
-                <p> Ghế số</p>
+                <p className="dark:text-white"> Ghế số</p>
                 <div className="grid grid-cols-10 gap-2 ml-9">
                   {ticket.lstTicket.map((ghe, index) => {
                     return (

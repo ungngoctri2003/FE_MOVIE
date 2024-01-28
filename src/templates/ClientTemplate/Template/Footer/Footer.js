@@ -3,10 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer
-      className="py-6 bg-coolGray-100 text-coolGray-900 border-t-2"
-      style={{ backgroundColor: "#222" }}
-    >
+    <footer className="py-6 bg-coolGray-100 text-coolGray-900 border-t-2 dark:bg-slate-900 bg-white">
       <div className="container px-6 mx-auto space-y-6 divide-y divide-coolGray-400 md:space-y-12 divide-opacity-50">
         <div className="grid grid-cols-12">
           <div className="pb-6 col-span-full md:pb-0 md:col-span-6">
@@ -100,14 +97,14 @@ export default function Footer() {
             </a>
           </div>
           <div className="col-span-6 text-center md:text-left md:col-span-3">
-            <p className="pb-1 text-2xl font-medium text-white">
+            <p className="pb-1 text-2xl font-medium text-black dark:text-white">
               Điều khoản sử dụng
             </p>
             <ul>
               <li>
                 <NavLink
                   to="/GeneralTerms"
-                  className="hover:text-violet-600 text-white text-lg"
+                  className="hover:text-violet-600 text-black dark:text-white text-lg"
                 >
                   Điều khoản chung
                 </NavLink>
@@ -115,7 +112,7 @@ export default function Footer() {
               <li>
                 <NavLink
                   to="/PrivacyPolicy"
-                  className="hover:text-violet-600 text-white text-lg"
+                  className="hover:text-violet-600 text-black dark:text-white text-lg"
                 >
                   Chính sách bảo mật
                 </NavLink>
@@ -123,7 +120,7 @@ export default function Footer() {
               <li>
                 <NavLink
                   to="/Questions"
-                  className="hover:text-violet-600 text-white text-lg"
+                  className="hover:text-violet-600 text-black dark:text-white text-lg"
                 >
                   Câu hỏi thường gặp
                 </NavLink>
@@ -132,20 +129,22 @@ export default function Footer() {
             </ul>
           </div>
           <div className="col-span-6 text-center md:text-left md:col-span-3">
-            <p className="pb-1 text-2xl font-medium text-white">
+            <p className="pb-1 text-2xl font-medium text-black dark:text-white">
               Chăm sóc khách hàng
             </p>
             <ul>
               <li>
-                <p className="text-white mb-1 text-lg">Hotline: 19001900</p>
-              </li>
-              <li>
-                <p className="text-white mb-1 text-lg">
-                  Giò làm việc : 8:00 - 22:00 hàng ngày
+                <p className="text-black dark:text-white mb-1 text-lg">
+                  Hotline: 19001900
                 </p>
               </li>
               <li>
-                <p className="text-white mb-1 text-lg">
+                <p className="text-black dark:text-white mb-1 text-lg">
+                  Giờ làm việc : 8:00 - 22:00 hàng ngày
+                </p>
+              </li>
+              <li>
+                <p className="text-black dark:text-white mb-1 text-lg">
                   Email hỗ trợ : lamcongtri2003@gmail.com
                 </p>
               </li>
@@ -154,7 +153,9 @@ export default function Footer() {
         </div>
         <div className="grid justify-center pt-6 lg:justify-between">
           <div className="flex flex-col self-center text-sm text-center md:block lg:col-start-1 md:space-x-6">
-            <span className="text-white">©2021 All rights reserved</span>
+            <span className="text-black dark:text-white">
+              ©2024 All rights reserved
+            </span>
             <a href="#">
               <span>Privacy policy</span>
             </a>

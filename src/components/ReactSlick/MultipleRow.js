@@ -32,8 +32,8 @@ function SamplePrevArrow(props) {
 }
 
 const typeNormapBtn =
-  "bg-white p-2 text-gray-700 border border-gray-700 rounded mr-3";
-const activeBtn = "bg-gray-700 p-2 text-white border border-white rounded mr-3";
+  "bg-white dark:bg-gray-900 p-2 text-gray-700 dark:text-gray-50 border border-gray-900 dark:border-gray-50 rounded mr-3";
+const activeBtn = "bg-sky-500 p-2 text-black border border-white rounded mr-3";
 export default function MultipleRow(props) {
   const dispatch = useDispatch();
   const [state, setState] = useState("dangChieu");
@@ -78,7 +78,7 @@ export default function MultipleRow(props) {
   };
 
   return (
-    <div className="my-7">
+    <div className="my-7 ">
       <div style={{ display: "flex" }}>
         {optionFilms?.map((item, index) => {
           return (

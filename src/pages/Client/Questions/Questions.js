@@ -35,7 +35,9 @@ export default function Questions() {
   return (
     <>
       <div className="max-w-3xl mx-auto pt-40">
-        <h2 className="text-5xl font-semibold mb-6">Câu Hỏi Thường Gặp</h2>
+        <h2 className="text-5xl font-semibold mb-6 dark:text-white">
+          Câu Hỏi Thường Gặp
+        </h2>
         {faqData.map((item, index) => (
           <div key={index} className="mb-4">
             <div className="flex items-start">
@@ -43,7 +45,7 @@ export default function Questions() {
                 {index + 1}
               </div>
               <div>
-                <h3 className="text-3xl font-semibold text-justify">
+                <h3 className="text-3xl font-semibold text-justify dark:text-white">
                   {item.question}
                 </h3>
                 <p className="text-2xl text-gray-600 text-justify">

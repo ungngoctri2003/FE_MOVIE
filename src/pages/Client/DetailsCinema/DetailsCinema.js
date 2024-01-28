@@ -26,10 +26,12 @@ export default function DetailsCinema(props) {
   }, []);
   return (
     <div className="py-20 px-28">
-      <h3 className="text-center text-3xl">Thông Tin Rạp Chiếu</h3>
-      <div className="grid grid-cols-3 gap-2">
-        <div className="col-span-2">
-          <h4 className="text-3xl">{rapChieuEdit.name}</h4>
+      <h3 className="text-center text-3xl dark:text-white">
+        Thông Tin Rạp Chiếu
+      </h3>
+      <div className="grid grid-cols-3 gap-2 dark:text-white">
+        <div className="col-span-2 dark:text-white">
+          <h4 className="text-3xl dark:text-white">{rapChieuEdit.name}</h4>
           <div className="text-base">
             <ul className="list-disc">
               <li>
@@ -50,7 +52,7 @@ export default function DetailsCinema(props) {
             </ul>
           </div>
           <div>
-            <h3 className="text-2xl">Quy Định Giá Vé</h3>
+            <h3 className="text-2xl dark:text-white">Quy Định Giá Vé</h3>
             <div className="text-base leading-loose">
               <ul>
                 <li>

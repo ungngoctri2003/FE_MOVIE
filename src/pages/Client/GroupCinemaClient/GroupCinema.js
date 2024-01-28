@@ -15,7 +15,7 @@ export default function GroupCinemaClient(props) {
       return (
         <div key={index} className="xl:w-1/4 md:w-1/3 sm:w-1/2 p-4 ">
           <div
-            className="bg-gray-100 py-2 px-3 rounded-lg cursor-pointer"
+            className="bg-gray-100 py-2 px-3 rounded-lg cursor-pointer border dark:bg-slate-800 dark:border-slate-600 hover:-translate-y-4 hover:ease-in-out hover:duration-700"
             onClick={() => {
               history.push(`SystemCinema/${cumRap.id}`);
             }}
@@ -33,7 +33,7 @@ export default function GroupCinemaClient(props) {
                 alt={cumRap.logo}
               />
             </div>
-            <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
+            <h2 className="text-lg text-gray-900 font-medium title-font mb-4 dark:text-white">
               {cumRap.groupName}
             </h2>
           </div>

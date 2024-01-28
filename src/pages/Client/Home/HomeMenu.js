@@ -6,8 +6,6 @@ import moment from "moment";
 import { NavLink } from "react-router-dom";
 import { history } from "../../../App";
 import { DOMAIN_STATIC_FILE } from "../../../utils/Settings/config";
-import { quanLyRapChieuServices } from "../../../services/QuanLyRapChieuServices";
-import { quanLyPhimServices } from "../../../services/QuanLyPhimServices.js";
 const { TabPane } = Tabs;
 function HomeMenu(props) {
   const { lichChieu } = props;
@@ -89,7 +87,7 @@ function HomeMenu(props) {
                                   alt={`${DOMAIN_STATIC_FILE}${phim.imgFilm}`}
                                 />
                                 <div className="ml-2">
-                                  <p className="text-lg font-medium text-black">
+                                  <p className="text-lg font-medium text-black dark:text-white">
                                     {phim.nameFilm}
                                   </p>
                                 </div>
@@ -98,7 +96,7 @@ function HomeMenu(props) {
                                 {phim.lstShowDate?.map((time, index) => {
                                   return (
                                     <button
-                                      className="rounded m-2 py-0.5 px-4 border"
+                                      className="rounded m-2 py-0.5 px-4 border border-black dark:border-white"
                                       key={index}
                                     >
                                       <NavLink to={`${`/checkout/${time.id}`}`}>
@@ -106,7 +104,7 @@ function HomeMenu(props) {
                                           "hh:mm A"
                                         )}
                                       </NavLink>
-                                      <p className="m-0 text-xs">
+                                      <p className="m-0 text-xs dark:text-white">
                                         {moment(time.showDate).format(
                                           "DD/MM/YYYY"
                                         )}

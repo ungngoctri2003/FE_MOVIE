@@ -11,8 +11,8 @@ export default function Film(props) {
   const { phim } = props;
   const dispatch = useDispatch();
   return (
-    <div className="parent" style={{ height: 500 }}>
-      <div className="flex flex-col  h-full mx-2 p-2 rounded-md shadow-md ">
+    <div className="parent " style={{ height: 500 }}>
+      <div className="flex flex-col  h-full m-3 p-5  rounded-md bg-white  dark:bg-slate-800  ring-1 ring-slate-900/5 shadow-2xl hover:-translate-y-4 hover:ease-in-out hover:duration-700">
         <div
           style={{
             backgroundImage: `url(${DOMAIN_STATIC_FILE}${phim.imgFilm})`,
@@ -29,7 +29,7 @@ export default function Film(props) {
             alt={`${DOMAIN_STATIC_FILE}${phim.imgFilm}`}
           />
           <div
-            className="w-full playVideo "
+            className="w-full playVideo"
             style={{
               top: 0,
               height: 300,
@@ -66,19 +66,19 @@ export default function Film(props) {
           className="cursor-pointer"
         >
           <div className="mt-6 mb-2">
-            <h2 className="text-xl h-16 font-semibold tracking-wide">
+            <h2 className="text-xl h-16 font-semibold tracking-wide dark:text-white">
               {phim.nameFilm}
             </h2>
           </div>
-          <p className="moTa text-coolGray-800">
+          <p className="moTa text-coolGray-800 dark:text-white">
             {_.truncate(phim.description, { length: 80, separator: "" })}
           </p>
         </div>
       </div>
       <div className="child flex justify-center ">
-        <button className="px-10 py-2 text-xl  rounded bg-red-500 text-white">
+        <button className="px-10 py-2 text-xl  rounded bg-red-500 text-white animate-bounce">
           <NavLink
-            className="text-white"
+            className="text-white "
             activeStyle={{ color: "white" }}
             to={`/DetailsFilm/${phim.id}`}
           >

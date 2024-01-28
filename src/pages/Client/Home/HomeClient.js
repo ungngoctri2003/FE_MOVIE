@@ -18,7 +18,7 @@ export default function HomeClient(props) {
   return (
     <div>
       <CarouselClient />
-      <div className="px-14">
+      <div className="px-14 dark:bg-slate-900">
         <MultipleRow arrPhim={lstPhim} />
         <HomeMenu lichChieu={showTime} />
       </div>

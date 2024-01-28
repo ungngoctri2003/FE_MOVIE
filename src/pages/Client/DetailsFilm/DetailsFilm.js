@@ -34,36 +34,40 @@ export default function DetailsFilm(props) {
         blur={15} // default blur value is 10px
         borderRadius={0}
       >
-        <div className="grid grid-cols-12">
+        <div className="grid grid-cols-12 ">
           <div className="col-span-5 col-start-3">
             <div className="grid grid-cols-3">
               <img
-                style={{ width: "100%", height: 400 }}
+                style={{ width: "100%", height: "100%" }}
                 src={`${DOMAIN_STATIC_FILE}${phimEdit.imgFilm}`}
                 alt={`${phimEdit.imgFilm}`}
               />
               <div className="flex flex-col  justify-center ml-5 col-span-2">
-                <p className="text-3xl font-bold">{phimEdit.nameFilm}</p>
-                <p>{phimEdit.description}</p>
-                <p>{moment(phimEdit.showtime).format("DD-MM-YYYY hh:mm")}</p>
+                <p className="text-3xl font-bold dark:text-black">
+                  {phimEdit.nameFilm}
+                </p>
+                <p className="dark:text-black">{phimEdit.description}</p>
+                <p className="dark:text-black">
+                  {moment(phimEdit.showtime).format("DD-MM-YYYY hh:mm")}
+                </p>
               </div>
             </div>
           </div>
           <div className="grid col-start-10 col-span-4 ">
             <div className={`c100 p${phimEdit?.rate * 10} big`}>
-              <span>{phimEdit?.rate}</span>
+              <span className="dark:text-black">{phimEdit?.rate}</span>
               <div className="slice">
                 <div className="bar" />
                 <div className="fill" />
               </div>
-              <div className="w-full text-center">
+              <div className="w-full text-center ">
                 <Rate allowHalf value={phimEdit?.rate / 2} />
               </div>
             </div>
           </div>
         </div>
         <div className="container">
-          <div className="bg-white  rounded py-10  mt-20">
+          <div className="bg-white  rounded py-10  mt-20 dark:bg-slate-800">
             <Tabs defaultActiveKey="1" centered>
               <TabPane tab="Lịch chiếu" key="1">
                 <Tabs tabPosition="left">
@@ -79,7 +83,7 @@ export default function DetailsFilm(props) {
                               src={`${DOMAIN_STATIC_FILE}${rapChieu.logo}`}
                               alt={rapChieu.logo}
                             />
-                            <p className="text-base pt-2">{`${rapChieu.groupName}`}</p>
+                            <p className="text-base pt-2 dark:text-white">{`${rapChieu.groupName}`}</p>
                           </div>
                         }
                       >
@@ -99,7 +103,7 @@ export default function DetailsFilm(props) {
                                       alt={`${rap.logo}`}
                                     />
 
-                                    <div className="text-black text-left ml-3">
+                                    <div className="text-black text-left ml-3 dark:text-white">
                                       <p>
                                         {_.truncate(rap.name, {
                                           length: 30,
@@ -120,7 +124,7 @@ export default function DetailsFilm(props) {
                                   (lichChieu, index) => {
                                     return (
                                       <Button
-                                        className="rounded m-2 py-2.5 px-4 h-3 border height_button_film"
+                                        className="rounded m-2 py-2.5 px-4 h-3 border height_button_film dark:bg-slate-700 shadow-xl"
                                         key={index}
                                       >
                                         <NavLink
@@ -130,7 +134,7 @@ export default function DetailsFilm(props) {
                                             "hh:mm A"
                                           )}
                                         </NavLink>
-                                        <p className="m-0 text-xs">
+                                        <p className="m-0 text-xs  dark:text-black">
                                           {moment(lichChieu.showDate).format(
                                             "DD/MM/YYYY"
                                           )}
@@ -152,21 +156,25 @@ export default function DetailsFilm(props) {
                 <div className="col-span-5 col-start-3">
                   <div className="grid grid-cols-3 px-5">
                     <img
-                      style={{ width: "100%", height: "400px" }}
+                      style={{ width: "100%", height: "100%" }}
                       src={`${DOMAIN_STATIC_FILE}${phimEdit.imgFilm}`}
                       alt={`${phimEdit.imgFilm}`}
                     />
                     <div className="flex flex-col  justify-center ml-5 col-span-2">
-                      <p className="text-2xl font-bold">{phimEdit.nameFilm}</p>
-                      <p className="text-2xl font-bold">
+                      <p className="text-2xl font-bold dark:text-white">
+                        {phimEdit.nameFilm}
+                      </p>
+                      <p className="text-2xl font-bold dark:text-white">
                         Đánh giá: {phimEdit.rate} sao
                       </p>
-                      <p className="text-2xl font-bold">
+                      <p className="text-2xl font-bold dark:text-white">
                         Tác giả: {phimEdit.actor}
                       </p>
 
-                      <p className="text-2xl">{phimEdit.description}</p>
-                      <p className="text-xl">
+                      <p className="text-2xl dark:text-white">
+                        {phimEdit.description}
+                      </p>
+                      <p className="text-xl dark:text-white">
                         {moment(phimEdit.showtime).format("DD-MM-YYYY hh:mm")}
                       </p>
                     </div>
@@ -174,7 +182,7 @@ export default function DetailsFilm(props) {
                 </div>
               </TabPane>
               <TabPane tab="Liên hệ" key="3">
-                <h2 className="text-xl mx-5">
+                <h2 className="text-xl mx-5 dark:text-white">
                   Nếu Quý khách có gặp bất cứ vấn đề nào liên quan tới việc đặt
                   vé online, vui lòng liên hệ fanpage Facebook của Beta Cinemas
                   hoặc gọi điện tới hotline 0934 632 682 để được hỗ trợ nhanh

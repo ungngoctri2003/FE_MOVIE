@@ -201,19 +201,21 @@ export default function Checkout(props) {
               alt={film?.imgFilm}
             />
 
-            <div className="ml-3">
-              <h3 className="mb-0">
+            <div className="ml-3 ">
+              <h3 className="mb-0 dark:text-white">
                 {film.groupName} - Rạp {film.rapChieu} - Phòng {}
                 {showTimeEdit?.room?.roomName}
               </h3>
-              <p className="mb-0 text-gray-500 font-bold opacity-50">
+              <p className="mb-0 text-gray-500 font-bold opacity-50 dark:text-white">
                 -{moment(film.showDate).format("DD/MM/YYYY hh:mm A")}{" "}
               </p>
             </div>
           </div>
           <div>
-            <p className="mb-0 text-gray-500">Thời gian giữ ghế</p>
-            <h2 className="mb-0 text-2xl text-center text-red-600">
+            <p className="mb-0 text-gray-500 dark:text-white">
+              Thời gian giữ ghế
+            </p>
+            <h2 className="mb-0 text-2xl text-center text-red-600 dark:text-white">
               {
                 <Countdown
                   onComplete={() => {
@@ -231,7 +233,9 @@ export default function Checkout(props) {
         <div>
           <div className="h-2 w-full bg-black mt-3 opacity-80"></div>
           <div className="mb-12" id={style.trapezoid}>
-            <h4 className="pt-1 text-center text-black">Screen</h4>
+            <h4 className="pt-1 text-center text-black dark:text-white">
+              Screen
+            </h4>
           </div>
           <div className="text-center">{renderListGhe()}</div>
         </div>
@@ -240,11 +244,11 @@ export default function Checkout(props) {
           <table className="table-auto min-w-full text-center">
             <thead>
               <tr>
-                <th className="w-10 ">Ghế Trống</th>
-                <th className="w-10">Ghế Đã đặt</th>
-                <th className="w-10">Ghế Bạn Đặt</th>
-                <th className="w-10">Ghế bạn đang chọn</th>
-                <th className="w-10">Ghế đang giữ</th>
+                <th className="w-10 dark:text-white">Ghế Trống</th>
+                <th className="w-10 dark:text-white">Ghế Đã đặt</th>
+                <th className="w-10 dark:text-white">Ghế Bạn Đặt</th>
+                <th className="w-10 dark:text-white">Ghế bạn đang chọn</th>
+                <th className="w-10 dark:text-white">Ghế đang giữ</th>
               </tr>
             </thead>
             <tbody>
@@ -277,12 +281,14 @@ export default function Checkout(props) {
           <hr />
 
           <div className="my-3">
-            <h3>{film.nameFilm}</h3>
-            <p className="mb-1">
+            <h3 className="dark:text-white">{film.nameFilm}</h3>
+            <p className="mb-1 dark:text-white">
               Rạp : {film.groupName} - {film.rapChieu}
             </p>
-            <p>Phòng : {showTimeEdit?.room?.roomName}</p>
-            <p className="mb-1">
+            <p className="dark:text-white">
+              Phòng : {showTimeEdit?.room?.roomName}
+            </p>
+            <p className="mb-1 dark:text-white">
               Thời gian chiếu:{" "}
               {moment(film.showDate).format("DD/MM/YYYY hh:mm A")}
             </p>
@@ -290,7 +296,7 @@ export default function Checkout(props) {
           <hr />
           <div className="text-lg text-left grid grid-cols-5 my-3 ">
             <div>
-              <span className="text-red-600  mb-0">Ghế</span>
+              <span className="text-red-600  mb-0 dark:text-white">Ghế</span>
             </div>
             <div className="col-span-4">
               <span>
@@ -303,13 +309,13 @@ export default function Checkout(props) {
           </div>
           <hr />
           <div className="my-3">
-            <p className="mb-1 text-gray-500">E-mail</p>
-            <p className="mb-0">{userLogin.email}</p>
+            <p className="mb-1 text-gray-500 dark:text-white">E-mail</p>
+            <p className="mb-0 dark:text-white">{userLogin.email}</p>
           </div>
           <hr />
           <div className="my-3">
-            <p className="mb-1 text-gray-500">Phone</p>
-            <p className="mb-0">{userLogin.phoneNumber}</p>
+            <p className="mb-1 text-gray-500 dark:text-white">Phone</p>
+            <p className="mb-0 dark:text-white">{userLogin.phoneNumber}</p>
           </div>
           <hr />
         </div>

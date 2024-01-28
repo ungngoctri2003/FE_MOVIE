@@ -68,7 +68,7 @@ export default function Banner(props) {
               alt={banner.image}
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
-                currentTarget.src = `https://picsum.photos/id/200/300`;
+                currentTarget.src = `https://picsum.photos/id/237/200/300`;
               }}
             />
           </div>

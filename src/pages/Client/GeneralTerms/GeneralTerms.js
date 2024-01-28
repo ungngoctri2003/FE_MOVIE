@@ -2,10 +2,12 @@ import React from "react";
 
 const GeneralTerms = () => {
   return (
-    <div className="flex items-center justify-center bg-gray-100 pt-40">
-      <div className="max-w-4xl bg-white p-8 rounded shadow-lg">
-        <h1 className="text-3xl font-bold mb-6">Điều Khoản Chung</h1>
-        <p className="text-gray-700 mb-4 text-justify">
+    <div className="flex items-center justify-center bg-gray-100 pt-40 dark:bg-slate-900">
+      <div className="max-w-4xl bg-white p-8 rounded shadow-lg dark:bg-slate-700">
+        <h1 className="text-3xl font-bold mb-6 dark:text-white">
+          Điều Khoản Chung
+        </h1>
+        <p className="text-gray-700 mb-4 text-justify dark:text-white">
           Việc bạn sử dụng website này đồng nghĩa với việc bạn đồng ý với những
           thỏa thuận dưới đây. Nếu bạn không đồng ý, xin vui lòng không sử dụng
           website. <br></br>

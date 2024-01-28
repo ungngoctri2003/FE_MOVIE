@@ -2,10 +2,12 @@ import React from "react";
 
 const PrivacyPolicy = () => {
   return (
-    <div className="flex items-center justify-center bg-gray-100 pt-40">
-      <div className="max-w-4xl bg-white p-8 rounded shadow-lg">
-        <h1 className="text-3xl font-bold mb-6">Chính Sách Bảo Mật</h1>
-        <p className="text-gray-700 mb-4 text-justify">
+    <div className="flex items-center justify-center bg-gray-100 pt-40 dark:bg-slate-900">
+      <div className="max-w-4xl bg-white p-8 rounded shadow-lg dark:bg-slate-700">
+        <h1 className="text-3xl font-bold mb-6 dark:text-white">
+          Chính Sách Bảo Mật
+        </h1>
+        <p className="text-gray-700 mb-4 text-justify dark:text-white">
           1. Mục đích thu thập thông tin cá nhân Việc thu thập dữ liệu chủ yếu
           trên website gift.betacinemas.vn bao gồm: họ tên, email, điện thoại,
           địa chỉ khách hàng. Đây là các thông tin mà chúng tôi cần thành viên
