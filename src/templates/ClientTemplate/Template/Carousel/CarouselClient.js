@@ -13,7 +13,8 @@ export default function CarouselClient(props) {
   }, []);
   const contentStyle = {
     marginTop: "70px",
-    height: "625px",
+    //height: "625px",
+    height: "100%",
     color: "#fff",
     lineHeight: "160px",
     textAlign: "center",

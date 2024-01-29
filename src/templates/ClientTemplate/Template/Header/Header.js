@@ -34,7 +34,7 @@ export default function Header(props) {
     return (
       <div className={`${styles.rs_btn}`} id="rs_btn">
         {_.isEmpty(userLogin) ? (
-          <div className="items-center  flex-shrink-0  lg:flex">
+          <div className="items-center  flex-shrink-0 flex ">
             <button
               onClick={() => {
                 history.push("/signIn");
@@ -179,7 +179,7 @@ export default function Header(props) {
           </div>
           {handleLogin()}
           {/* dark/ light */}
-          <div className=" top-5 right-10 duration-100 dark:bg-slate-800 bg-gray-100 rounded ">
+          <div className=" top-5 right-10 duration-100 dark:bg-slate-800 bg-gray-100 rounded hidden md:block">
             {options?.map((opt) => (
               <button
                 key={opt.text}

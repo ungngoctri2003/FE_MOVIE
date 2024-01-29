@@ -11,7 +11,7 @@ export default function Film(props) {
   const { phim } = props;
   const dispatch = useDispatch();
   return (
-    <div className="parent " style={{ height: 500 }}>
+    <div className="parent " style={{ height: "100%", minHeight: "500px" }}>
       <div className="flex flex-col  h-full m-3 p-5  rounded-md bg-white  dark:bg-slate-800  ring-1 ring-slate-900/5 shadow-2xl hover:-translate-y-4 hover:ease-in-out hover:duration-700">
         <div
           style={{
