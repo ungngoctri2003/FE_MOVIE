@@ -6,10 +6,11 @@ import {
   signIn,
   forgotPasswordAction,
 } from "../../../redux/Actions/QuanLyNguoiDungAction";
-
+import "./SignIn.css";
 export default function SignIn(props) {
   const dispatch = useDispatch();
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -30,6 +31,9 @@ export default function SignIn(props) {
   const handleForgotPasswordSubmit = (values) => {
     dispatch(forgotPasswordAction(values.email));
     setShowForgotPassword(false);
+  };
+  const handleShowHidePassword = () => {
+    setIsShowPassword((prevState) => !prevState);
   };
   return (
     <form
@@ -66,10 +70,20 @@ export default function SignIn(props) {
               <input
                 name="password"
                 onChange={formik.handleChange}
-                type="password"
+                type={isShowPassword ? "text" : "password"}
                 className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="************"
               />
+              <div
+                className="relative top-[14px] left-[-33px]"
+                onClick={handleShowHidePassword}
+              >
+                <i
+                  className={`fas ${
+                    isShowPassword ? "fa-eye" : "fa-eye-slash"
+                  } absolute `}
+                ></i>
+              </div>
             </div>
           </div>
         </div>

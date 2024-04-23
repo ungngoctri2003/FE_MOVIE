@@ -68,7 +68,7 @@ export default function DetailsFilm(props) {
         </div>
         <div className="container">
           <div className="bg-white  rounded py-10  mt-20 dark:bg-slate-800">
-            <Tabs defaultActiveKey="1" centered>
+            <Tabs className="dark:text-white" defaultActiveKey="1" centered>
               <TabPane tab="Lịch chiếu" key="1">
                 <Tabs tabPosition="left">
                   {showTime?.map((rapChieu, index) => {

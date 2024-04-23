@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { signUp } from "./../../../redux/Actions/QuanLyNguoiDungAction";
 
 export default function SignUp() {
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -33,6 +34,9 @@ export default function SignUp() {
       dispatch(signUp(values, 2));
     },
   });
+  const handleShowHidePassword = () => {
+    setIsShowPassword((prevState) => !prevState);
+  };
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -94,10 +98,20 @@ export default function SignUp() {
               <input
                 name="password"
                 onChange={formik.handleChange}
-                type="password"
+                type={isShowPassword ? "text" : "password"}
                 className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="************"
               />
+              <div
+                className="relative top-[14px] left-[-33px]"
+                onClick={handleShowHidePassword}
+              >
+                <i
+                  className={`fas ${
+                    isShowPassword ? "fa-eye" : "fa-eye-slash"
+                  } absolute `}
+                ></i>
+              </div>
             </div>
             {formik.errors.password && formik.touched.password && (
               <p className="m-0 mt-1 text-red-600">{formik.errors.password}</p>
