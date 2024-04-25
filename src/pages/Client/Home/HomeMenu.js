@@ -30,7 +30,7 @@ function HomeMenu(props) {
                     src={`${DOMAIN_STATIC_FILE}${item.logo}`}
                     alt={`${DOMAIN_STATIC_FILE}${item.logo}`}
                   />
-                  <p className="text-base pt-2">{`${item.groupName}`}</p>
+                  <p className="text-base pt-2 dark:text-white">{`${item.groupName}`}</p>
                 </div>
               }
               key={index}
@@ -67,9 +67,6 @@ function HomeMenu(props) {
                                   separator: ".",
                                 })}
                               </p>
-                              <p className="text-red-400 m-0 text-xs">
-                                [Chi tiết]
-                              </p>
                             </div>
                           </div>
                         }
@@ -103,12 +100,12 @@ function HomeMenu(props) {
                                         {moment(time.showDate).format(
                                           "hh:mm A"
                                         )}
+                                        <p className="m-0 text-xs dark:text-white">
+                                          {moment(time.showDate).format(
+                                            "DD/MM/YYYY"
+                                          )}
+                                        </p>
                                       </NavLink>
-                                      <p className="m-0 text-xs dark:text-white">
-                                        {moment(time.showDate).format(
-                                          "DD/MM/YYYY"
-                                        )}
-                                      </p>
                                     </button>
                                   );
                                 })}

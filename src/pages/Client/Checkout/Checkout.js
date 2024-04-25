@@ -176,7 +176,7 @@ export default function Checkout(props) {
   };
   return (
     <div className="grid grid-cols-12 h-screen">
-      <div className="container pt-5 col-span-9">
+      <div className="container pt-5 col-span-9 dark:bg-slate-900">
         <div
           onClick={() => {
             if (listGheDangDat.length > 0) {
@@ -265,7 +265,7 @@ export default function Checkout(props) {
       </div>
 
       <div
-        className={`col-span-3 px-9 pt-5 flex flex-col  ${style.shadow_right}`}
+        className={`col-span-3 px-9 pt-5 flex flex-col dark:bg-slate-900  ${style.shadow_right}`}
       >
         <div>
           <div className="text-center text-2xl text-green-600 my-3">
@@ -275,7 +275,7 @@ export default function Checkout(props) {
                   return (tong += Number(ghe.price));
                 }, 0)
                 .toLocaleString()}
-              đ
+              $
             </span>
           </div>
           <hr />

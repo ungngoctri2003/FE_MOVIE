@@ -156,12 +156,6 @@ export default function Footer() {
             <span className="text-black dark:text-white">
               ©2024 All rights reserved
             </span>
-            <a href="#">
-              <span>Privacy policy</span>
-            </a>
-            <a href="#">
-              <span>Terms of service</span>
-            </a>
           </div>
           <div className="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
             <a

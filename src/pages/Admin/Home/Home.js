@@ -41,7 +41,7 @@ export default function Home() {
           ],
           datasets: [
             {
-              label: "Số tiền kiếm được (VND)",
+              label: "Số tiền kiếm được ($)",
               backgroundColor: [
                 "#3e95cd",
                 "#8e5ea2",
