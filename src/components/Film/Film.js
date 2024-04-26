@@ -12,7 +12,7 @@ export default function Film(props) {
   const dispatch = useDispatch();
   return (
     <div className="parent " style={{ height: "500px" }}>
-      <div className="flex flex-col  h-full m-3 p-5  rounded-md bg-white  dark:bg-slate-800  ring-1 ring-slate-900/5 shadow-2xl hover:-translate-y-4 hover:ease-in-out hover:duration-700">
+      <div className="flex flex-col  h-full m-3 p-5  rounded-xl bg-white  dark:bg-slate-800  ring-1 ring-slate-900/5 shadow-2xl shadow-blue-500/50 dark:shadow-pink-800 hover:-translate-y-4 hover:ease-in-out hover:duration-700">
         <div
           style={{
             backgroundImage: `url(${DOMAIN_STATIC_FILE}${phim.imgFilm})`,
@@ -24,7 +24,7 @@ export default function Film(props) {
         >
           <img
             src={`${DOMAIN_STATIC_FILE}${phim.imgFilm}`}
-            className="opacity-0 w-full"
+            className="opacity-0 w-full object-cover"
             style={{ height: 300 }}
             alt={`${DOMAIN_STATIC_FILE}${phim.imgFilm}`}
           />
@@ -76,7 +76,7 @@ export default function Film(props) {
         </div>
       </div>
       <div className="child flex justify-center ">
-        <button className="px-10 py-2 text-xl  rounded bg-red-500 text-white animate-bounce">
+        <button className="px-10 py-2 text-xl  rounded-xl bg-red-500 text-white animate-bounce">
           <NavLink
             className="text-white "
             activeStyle={{ color: "white" }}

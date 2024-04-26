@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { CustomCard } from "@tsamantanis/react-glassmorphism";
 import "@tsamantanis/react-glassmorphism/dist/index.css";
 import "../../../components/CircleRating/CircleRating.css";
@@ -79,7 +79,11 @@ export default function DetailsFilm(props) {
                         tab={
                           <div>
                             <img
-                              style={{ width: 50, height: 50 }}
+                              style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: "9999px",
+                              }}
                               src={`${DOMAIN_STATIC_FILE}${rapChieu.logo}`}
                               alt={rapChieu.logo}
                             />
@@ -98,7 +102,11 @@ export default function DetailsFilm(props) {
                                     className="flex flex-wrap"
                                   >
                                     <img
-                                      style={{ width: 60, height: 60 }}
+                                      style={{
+                                        width: 60,
+                                        height: 60,
+                                        borderRadius: "9999px",
+                                      }}
                                       src={`${DOMAIN_STATIC_FILE}${rap.logo}`}
                                       alt={`${rap.logo}`}
                                     />
@@ -124,7 +132,7 @@ export default function DetailsFilm(props) {
                                   (lichChieu, index) => {
                                     return (
                                       <Button
-                                        className="rounded m-2 py-2.5 px-4 h-3 border height_button_film dark:bg-slate-700 shadow-xl"
+                                        className="rounded-xl m-2 py-2.5 px-4 h-3 border height_button_film dark:bg-slate-700 shadow-xl"
                                         key={index}
                                       >
                                         <NavLink

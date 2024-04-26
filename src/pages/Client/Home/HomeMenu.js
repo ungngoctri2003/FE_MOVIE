@@ -1,6 +1,5 @@
 import React, { useState, memo } from "react";
 import { Tabs } from "antd";
-import { useDispatch } from "react-redux";
 import _ from "lodash";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
@@ -9,8 +8,7 @@ import { DOMAIN_STATIC_FILE } from "../../../utils/Settings/config";
 const { TabPane } = Tabs;
 function HomeMenu(props) {
   const { lichChieu } = props;
-  const dispatch = useDispatch();
-  const [state, setState] = useState({
+  const [state] = useState({
     tabPosition: "left",
   });
 
@@ -26,7 +24,7 @@ function HomeMenu(props) {
               tab={
                 <div>
                   <img
-                    className="w-10 rounded-full"
+                    className="w-10 rounded-full object-cover"
                     src={`${DOMAIN_STATIC_FILE}${item.logo}`}
                     alt={`${DOMAIN_STATIC_FILE}${item.logo}`}
                   />
@@ -49,7 +47,7 @@ function HomeMenu(props) {
                           <div className="flex w-25 pb-2 border-b">
                             <div className="h-16 w-16">
                               <img
-                                className="w-full h-full"
+                                className="w-full h-full rounded-full object-cover"
                                 src={`${DOMAIN_STATIC_FILE}${rap.logo}`}
                                 alt={`${DOMAIN_STATIC_FILE}${rap.logo}`}
                               />
@@ -79,7 +77,7 @@ function HomeMenu(props) {
                                   onClick={() => {
                                     history.push(`/DetailsFilm/${phim.idFilm}`);
                                   }}
-                                  className="w-20 h-20 cursor-pointer"
+                                  className="w-20 h-20 cursor-pointer object-cover"
                                   src={`${DOMAIN_STATIC_FILE}${phim.imgFilm}`}
                                   alt={`${DOMAIN_STATIC_FILE}${phim.imgFilm}`}
                                 />
@@ -93,14 +91,14 @@ function HomeMenu(props) {
                                 {phim.lstShowDate?.map((time, index) => {
                                   return (
                                     <button
-                                      className="rounded m-2 py-0.5 px-4 border border-black dark:border-white"
+                                      className="rounded-xl m-2 py-0.5 px-4 border border-black dark:border-white"
                                       key={index}
                                     >
                                       <NavLink to={`${`/checkout/${time.id}`}`}>
                                         {moment(time.showDate).format(
                                           "hh:mm A"
                                         )}
-                                        <p className="m-0 text-xs dark:text-white">
+                                        <p className="m-0 text-xs text-black dark:text-white">
                                           {moment(time.showDate).format(
                                             "DD/MM/YYYY"
                                           )}

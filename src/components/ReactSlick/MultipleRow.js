@@ -1,15 +1,13 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Slider from "react-slick";
 import {
   ALL_PHIM,
   PHIM_DANG_CHIEU,
   PHIM_SAP_CHHIEU,
-  SET_PHIM,
 } from "../../redux/Types/QuanLyPhimType";
 import Phim from "../Film/Film";
 import styleSlick from "./MultipleRow.module.css";
-import _ from "lodash";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -36,7 +34,6 @@ const typeNormapBtn =
 const activeBtn = "bg-sky-500 p-2 text-black border border-white rounded mr-3";
 export default function MultipleRow(props) {
   const dispatch = useDispatch();
-  const [state, setState] = useState("dangChieu");
 
   const [isActive, setIsActive] = useState(0);
 
@@ -90,7 +87,9 @@ export default function MultipleRow(props) {
                     type: item.action,
                   });
                 }}
-                className={isActive === item?.idx ? activeBtn : typeNormapBtn}
+                className={`${
+                  isActive === item?.idx ? activeBtn : typeNormapBtn
+                } rounded-lg`}
               >
                 {item?.title}
               </button>

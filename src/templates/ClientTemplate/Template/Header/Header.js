@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { history } from "../../../../App";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Menu, Dropdown } from "antd";
 import { DownOutlined, QqOutlined } from "@ant-design/icons";
 import _ from "lodash";
@@ -160,7 +160,7 @@ export default function Header(props) {
               <li className="hover:animate-pulse">
                 <NavLink
                   to="/home"
-                  className={`${styles.rs_header} flex px-6 py-5 h-full  font-semibold dark:text-white hover:bg-violet-600  dark:hover:text-blue-400 rounded md:bg-transparent text-black md:p-0" aria-current="page" activeClassName='text-yellow-700`}
+                  className={`${styles.rs_header} flex px-6 py-4 h-full  font-semibold dark:text-white hover:bg-violet-600  dark:hover:text-blue-400 rounded-lg md:bg-transparent text-black md:p-0" aria-current="page" activeClassName='text-yellow-700`}
                 >
                   <ion-icon name="home-outline"></ion-icon>
                   <span className="ml-1 ">Trang Chủ</span>
@@ -169,7 +169,7 @@ export default function Header(props) {
               <li className="hover:animate-pulse ">
                 <NavLink
                   to="/GroupCinema"
-                  className={`${styles.rs_header} flex px-6 py-5 h-full  font-semibold dark:text-white hover:bg-violet-600  dark:hover:text-blue-400 dark:hover:text-blue-400 rounded md:bg-transparent text-black md:p-0" activeClassName='text-blue-700`}
+                  className={`${styles.rs_header} flex px-6 py-4 h-full  font-semibold dark:text-white hover:bg-violet-600  dark:hover:text-blue-400 rounded-lg md:bg-transparent text-black md:p-0" activeClassName='text-blue-700`}
                 >
                   <ion-icon name="film-outline"></ion-icon>
                   <span className="ml-1">Cụm Rạp</span>
