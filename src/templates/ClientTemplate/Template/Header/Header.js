@@ -32,7 +32,7 @@ export default function Header(props) {
 
   const handleLogin = () => {
     return (
-      <div className={`${styles.rs_btn}`} id="rs_btn">
+      <div className={`${styles.rs_btn} `} id="rs_btn">
         {_.isEmpty(userLogin) ? (
           <div className="items-center  flex-shrink-0 flex ">
             <button
@@ -148,7 +148,7 @@ export default function Header(props) {
   });
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <nav className=" border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:text-gray-100 dark:bg-slate-900 duration-100 text-coolGray-800 fixed z-10 w-full bg-white">
         <div className="lg:container flex flex-wrap justify-between items-center mx-auto">
           <NavLink to="/home" className="flex items-center">
