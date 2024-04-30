@@ -91,13 +91,13 @@ export default function Footer() {
                   </g>
                 </svg>
               </div>
-              <span className="self-center text-2xl font-semibold">
+              <span className="self-center text-2xl font-semibold uppercase">
                 Beta Cinemas
               </span>
             </a>
           </div>
           <div className="col-span-6 text-center md:text-left md:col-span-3">
-            <p className="pb-1 text-2xl font-medium text-black dark:text-white">
+            <p className="pb-1 text-2xl font-medium text-black dark:text-white uppercase">
               Điều khoản sử dụng
             </p>
             <ul>
@@ -129,7 +129,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="col-span-6 text-center md:text-left md:col-span-3">
-            <p className="pb-1 text-2xl font-medium text-black dark:text-white">
+            <p className="pb-1 text-2xl font-medium text-black dark:text-white uppercase">
               Chăm sóc khách hàng
             </p>
             <ul>

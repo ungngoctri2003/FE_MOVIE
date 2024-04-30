@@ -110,7 +110,7 @@ export default function Template(props) {
                   <div className="flex justify-end items-center h-full px-10 cursor-pointer">
                     <Dropdown overlay={menu} trigger={["click"]}>
                       <span
-                        className="ant-dropdown-link text-white"
+                        className="ant-dropdown-link text-white uppercase"
                         onClick={(e) => e.preventDefault()}
                       >
                         {userLogin.userName} <DownOutlined />
@@ -118,6 +118,7 @@ export default function Template(props) {
                     </Dropdown>
                     <div className="ml-3">
                       <NavLink
+                        className="uppercase"
                         to="/"
                         style={(isActive) => ({
                           color: isActive ? "white" : "white",

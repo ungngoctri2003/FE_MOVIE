@@ -43,7 +43,7 @@ export default function SignUp() {
       className="w-full md:w-1/2 py-10 px-5 md:px-10"
     >
       <div className="text-center mb-10">
-        <h1 className="font-bold text-3xl text-gray-900">Đăng Kí</h1>
+        <h1 className="font-bold text-3xl text-gray-900 uppercase">Đăng Kí</h1>
       </div>
       <div>
         {/* userName */}
@@ -140,11 +140,11 @@ export default function SignUp() {
             )}
           </div>
         </div>
-        <div className="flex -mx-3">
+        <div className="flex mx-3 my-3">
           <div className="w-full px-3 mb-5">
             <button
               type="submit"
-              className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
+              className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold uppercase"
             >
               Đăng Kí
             </button>

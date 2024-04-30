@@ -41,7 +41,9 @@ export default function SignIn(props) {
       className="w-full md:w-1/2 py-10 px-5 md:px-10"
     >
       <div className="text-center mb-10">
-        <h1 className="font-bold text-3xl text-gray-900">Đăng Nhập</h1>
+        <h1 className="font-bold text-3xl text-gray-900 uppercase">
+          Đăng Nhập
+        </h1>
       </div>
       <div>
         <div className="flex -mx-3">
@@ -91,7 +93,7 @@ export default function SignIn(props) {
           <div className="w-full px-3 mb-5">
             <button
               type="submit"
-              className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
+              className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold uppercase"
             >
               Đăng Nhập
             </button>
@@ -103,7 +105,7 @@ export default function SignIn(props) {
             <button
               type="button"
               onClick={handleForgotPasswordClick}
-              className="block w-full max-w-xs mx-auto bg-gray-500 hover:bg-gray-700 focus:bg-gray-700 text-white rounded-lg px-3 py-3 font-semibold"
+              className="block w-full max-w-xs mx-auto bg-gray-500 hover:bg-gray-700 focus:bg-gray-700 text-white rounded-lg px-3 py-3 font-semibold uppercase"
             >
               Quên mật khẩu
             </button>
@@ -118,7 +120,7 @@ export default function SignIn(props) {
         {showForgotPassword && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
             <div className="bg-white p-5 w-3/6 rounded-lg">
-              <h2 className="text-2xl font-bold mb-5">Quên mật khẩu</h2>
+              <h2 className="text-2xl font-bold mb-5 uppercase"></h2>
               <form onSubmit={formik.handleSubmit}>
                 <div className="mb-3">
                   <label className="block text-sm font-semibold mb-2">

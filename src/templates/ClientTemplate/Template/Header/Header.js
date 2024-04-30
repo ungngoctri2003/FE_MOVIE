@@ -15,10 +15,13 @@ export default function Header(props) {
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <NavLink to="/Profile">Thông tin cá nhân</NavLink>
+        <NavLink className="uppercase" to="/Profile">
+          Thông tin cá nhân
+        </NavLink>
       </Menu.Item>
       <Menu.Item key="1">
         <NavLink
+          className="uppercase"
           onClick={() => {
             dispatch({ type: SIGN_OUT });
           }}
@@ -42,7 +45,7 @@ export default function Header(props) {
               className={`${styles.rs_header} flex items-center self-center px-6 py-3 font-semibold rounded hover:bg-violet-600 text-black dark:text-white hover:text-blue-400  dark:hover:text-blue-400 hover:animate-pulse`}
             >
               <ion-icon className="" name="log-in"></ion-icon>
-              <span className="ml-1 ">Đăng Nhập</span>
+              <span className="ml-1 uppercase">Đăng Nhập</span>
             </button>
             <button
               onClick={() => {
@@ -52,7 +55,7 @@ export default function Header(props) {
             >
               <ion-icon name="log-out"></ion-icon>
 
-              <span className="ml-1 "> Đăng Kí</span>
+              <span className="ml-1 uppercase"> Đăng Kí</span>
             </button>
           </div>
         ) : (
@@ -66,7 +69,9 @@ export default function Header(props) {
                   className="w-10 h-10 rounded-full"
                   src={userLogin.avatar}
                 />
-                <span className="mx-2 text-xl">{userLogin.userName}</span>
+                <span className="mx-2 text-xl uppercase">
+                  {userLogin.userName}
+                </span>
                 <DownOutlined />
               </a>
             </Dropdown>
@@ -76,7 +81,7 @@ export default function Header(props) {
                   <QqOutlined />
                 </p>
                 <NavLink
-                  className="text-black dark:text-white dark:hover:text-blue-400"
+                  className="text-black dark:text-white dark:hover:text-blue-400 uppercase"
                   to="/Admin/Home"
                 >
                   Quản lý
@@ -163,7 +168,7 @@ export default function Header(props) {
                   className={`${styles.rs_header} flex px-6 py-4 h-full  font-semibold dark:text-white hover:bg-violet-600  dark:hover:text-blue-400 rounded-lg md:bg-transparent text-black md:p-0" aria-current="page" activeClassName='text-yellow-700`}
                 >
                   <ion-icon name="home-outline"></ion-icon>
-                  <span className="ml-1 ">Trang Chủ</span>
+                  <span className="ml-1 uppercase">Trang Chủ</span>
                 </NavLink>
               </li>
               <li className="hover:animate-pulse ">
@@ -172,7 +177,7 @@ export default function Header(props) {
                   className={`${styles.rs_header} flex px-6 py-4 h-full  font-semibold dark:text-white hover:bg-violet-600  dark:hover:text-blue-400 rounded-lg md:bg-transparent text-black md:p-0" activeClassName='text-blue-700`}
                 >
                   <ion-icon name="film-outline"></ion-icon>
-                  <span className="ml-1">Cụm Rạp</span>
+                  <span className="ml-1 uppercase">Cụm Rạp</span>
                 </NavLink>
               </li>
             </ul>
