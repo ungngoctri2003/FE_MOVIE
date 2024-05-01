@@ -6,7 +6,6 @@ import {
   signIn,
   forgotPasswordAction,
 } from "../../../redux/Actions/QuanLyNguoiDungAction";
-import "./SignIn.css";
 export default function SignIn(props) {
   const dispatch = useDispatch();
   const [showForgotPassword, setShowForgotPassword] = useState(false);
