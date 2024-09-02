@@ -14,6 +14,7 @@ import {
   ShopOutlined,
   ClusterOutlined,
   HomeOutlined,
+  BellOutlined,
 } from "@ant-design/icons";
 import { SIGN_OUT } from "../../../redux/Types/QuanLyNguoiDungType";
 import { history } from "./../../../App";
@@ -79,26 +80,32 @@ export default function Template(props) {
                   <Menu.Item key="2" icon={<UserOutlined />}>
                     <NavLink to="/Admin/Users">Tài Khoản</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="3" icon={<ClusterOutlined />}>
+                  <Menu.Item key="3" icon={<UserOutlined />}>
+                    <NavLink to="/Admin/Combo">Combo</NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="4" icon={<ClusterOutlined />}>
                     <NavLink to="/Admin/GroupCinemas">Cụm Rạp</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="4" icon={<ShopOutlined />}>
+                  <Menu.Item key="5" icon={<ShopOutlined />}>
                     <NavLink to="/Admin/Cinemas">Rạp Chiếu</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="5" icon={<DesktopOutlined />}>
+                  <Menu.Item key="6" icon={<DesktopOutlined />}>
                     <NavLink to="/Admin/Rooms">Phòng</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="6" icon={<VideoCameraOutlined />}>
+                  <Menu.Item key="7" icon={<VideoCameraOutlined />}>
                     <NavLink to="/Admin/Films">Phim</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="7" icon={<CalendarOutlined />}>
+                  <Menu.Item key="8" icon={<CalendarOutlined />}>
                     <NavLink to="/Admin/ShowTimes">Lịch Chiếu</NavLink>
                   </Menu.Item>
-                  <Menu.Item disabled key="8" icon={<WomanOutlined />}>
+                  <Menu.Item disabled key="9" icon={<WomanOutlined />}>
                     <NavLink to="/Admin/TypeUsers">Loại Người Dùng</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="9" icon={<WomanOutlined />}>
+                  <Menu.Item key="10" icon={<WomanOutlined />}>
                     <NavLink to="/Admin/Banners">Banner</NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="11" icon={<BellOutlined />}>
+                    <NavLink to="/Admin/Feedback">Feedback</NavLink>
                   </Menu.Item>
                 </Menu>
               </Sider>

@@ -10,6 +10,14 @@ module.exports = {
       xl: "1280px",
       "2xl": "1536px",
     },
+    extend: {
+      colors: {
+        "primary-light": "#ff6f61", // Màu chủ đạo sáng
+        "primary-dark": "#ff4c4c", // Màu chủ đạo tối
+        "bg-dark": "#1a1a1a", // Màu nền tối
+        "text-light": "#e0e0e0", // Màu chữ sáng
+      },
+    },
     colors: ({ colors }) => ({
       inherit: colors.inherit,
       current: colors.current,

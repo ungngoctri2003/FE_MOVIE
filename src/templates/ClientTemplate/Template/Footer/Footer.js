@@ -125,6 +125,14 @@ export default function Footer() {
                   Câu hỏi thường gặp
                 </NavLink>
               </li>
+              <li className="mt-5">
+                <NavLink
+                  to="/Feedback"
+                  className="bg-gradient-to-r from-violet-500 to-indigo-500 hover:from-violet-600 hover:to-indigo-600 text-white text-xl py-2 px-8 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
+                >
+                  Góp ý
+                </NavLink>
+              </li>
               {/**/}
             </ul>
           </div>

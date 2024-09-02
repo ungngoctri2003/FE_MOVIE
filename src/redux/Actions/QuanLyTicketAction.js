@@ -3,6 +3,7 @@ import { CLEAR_VE_DANG_CHON } from "../Types/QuanLySeatsType";
 import { quanLyTicketServices } from "./../../services/QuanLyTicketServices";
 import { SET_LIST_TICKET_WITH_USER } from "./../Types/QuanLyTicketType";
 import { DISPLAY_LOADING, HIDDEN_LOADING } from "../Types/LoadingType";
+import { SET_TICKET_COUNT_BY_DAY } from "../Types/QuanLyTicketType";
 export const datVe = (dataCreate) => {
   return async (dispatch) => {
     try {
@@ -33,6 +34,33 @@ export const danhSachVeTheoUserAction = (idUser) => {
           type: HIDDEN_LOADING,
         });
       }
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: HIDDEN_LOADING,
+      });
+    }
+  };
+};
+export const laySoLuongVeTheoNgayAction = (year, month) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: DISPLAY_LOADING,
+      });
+      const result = await quanLyTicketServices.getTicketCountByDay(
+        year,
+        month
+      );
+      if (result.status === 200) {
+        dispatch({
+          type: SET_TICKET_COUNT_BY_DAY,
+          ticketCountByDay: result.data,
+        });
+      }
+      dispatch({
+        type: HIDDEN_LOADING,
+      });
     } catch (error) {
       console.log(error);
       dispatch({

@@ -75,6 +75,7 @@ export default function Header(props) {
                 <DownOutlined />
               </a>
             </Dropdown>
+
             {userLogin?.typeUser.type !== "CLIENT" ? (
               <div className="mb-0 ml-3 text-xl flex justify-center items-center hover:text-blue-400 dark:hover:text-blue-400">
                 <p className="mb-0">
@@ -180,10 +181,12 @@ export default function Header(props) {
                   <span className="ml-1 uppercase">Cụm Rạp</span>
                 </NavLink>
               </li>
+              <li className="hover:animate-pulse "></li>
             </ul>
           </div>
           {handleLogin()}
           {/* dark/ light */}
+
           <div className=" top-5 right-10 duration-100 dark:bg-slate-800 bg-gray-100 rounded hidden md:block">
             {options?.map((opt) => (
               <button

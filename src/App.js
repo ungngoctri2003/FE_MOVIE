@@ -36,6 +36,7 @@ import ModalTrailer from "./components/Modal/ModalTrailer";
 import Profile from "./pages/Client/Profile/Profile";
 import GroupCinemaClient from "./pages/Client/GroupCinemaClient/GroupCinema";
 import Questions from "./pages/Client/Questions/Questions";
+import FeedbackUser from "./pages/Client/Feedback/Feedback";
 import PrivacyPolicy from "./pages/Client/PrivacyPolicy/PrivacyPolicy";
 import GeneralTerms from "./pages/Client/GeneralTerms/GeneralTerms";
 import SystemCinema from "./pages/Client/SystemCinema/SystemCinema";
@@ -48,10 +49,15 @@ import Loading from "./components/Loading/Loading";
 import io from "socket.io-client";
 import { DOMAIN_STATIC_FILE } from "./utils/Settings/config";
 import Banner from "./pages/Admin/Banner";
+import Feedback from "./pages/Admin/Feedback/FeedBack";
 import CreateBanner from "./pages/Admin/Banner/Create";
 import EditBanner from "./pages/Admin/Banner/Edit";
 import RoomPreview from "./components/Room/Preview";
 import ScrollButton from "./components/ScrollTop/ScrollButton";
+import BongNuoc from "./pages/Admin/BongNuoc/BongNuoc";
+import BongNuocUser from "./pages/Client/BongNuoc/BongNuoc";
+import BongNuocEdit from "./pages/Admin/BongNuoc/Edit/BongNuocEdit";
+import BongNuocCreate from "./pages/Admin/BongNuoc/Create/BongNuocCreate";
 const socket = io.connect(`${DOMAIN_STATIC_FILE}`);
 export const history = createBrowserHistory();
 export default function App() {
@@ -88,6 +94,15 @@ export default function App() {
         <Template path="/Admin/Users" exact Component={User} />
         <Template path="/Admin/Users/Edit/:id" exact Component={UserEdit} />
         <Template path="/Admin/Users/Create" exact Component={UserCreate} />
+        {/* Combo */}
+        <Template path="/Admin/Combo" exact Component={BongNuoc} />
+        <Template
+          path="/Admin/Combos/Edit/:id"
+          exact
+          Component={BongNuocEdit}
+        />
+        <Template path="/Admin/Combo/Create" exact Component={BongNuocCreate} />
+
         {/* Film */}
         <Template path="/Admin/Films" exact Component={Film} />
         <Template path="/Admin/Films/Create" exact Component={FilmCreate} />
@@ -146,7 +161,8 @@ export default function App() {
           exact
           Component={TypeUserEdit}
         />
-
+        {/* Feedback */}
+        <Template path="/Admin/Feedback" exact Component={Feedback} />
         {/* //! Banner */}
         <Template path="/Admin/Banners" exact Component={Banner} />
         <Template path="/Admin/Banners/Create" exact Component={CreateBanner} />
@@ -154,11 +170,14 @@ export default function App() {
         {/* Ticket */}
         <Template path="/Admin/Tickets/:id" exact Component={Ticket} />
         {/* //! */}
+
+        <UserTemplate path="/chon-combo/" exact Component={BongNuocUser} />
         <UserTemplate path="/DetailsFilm/:id" exact Component={DetailsFilm} />
         <UserTemplate path="/Home" exact Component={HomeClient} />
         <UserTemplate path="/Profile" exact Component={Profile} />
         <UserTemplate path="/GroupCinema" exact Component={GroupCinemaClient} />
         <UserTemplate path="/Questions" exact Component={Questions} />
+        <UserTemplate path="/Feedback" exact Component={FeedbackUser} />
         <UserTemplate path="/PrivacyPolicy" exact Component={PrivacyPolicy} />
         <UserTemplate path="/GeneralTerms" exact Component={GeneralTerms} />
         <UserTemplate path="/SystemCinema/:id" exact Component={SystemCinema} />

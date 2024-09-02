@@ -1,0 +1,71 @@
+/* PopcornDrinks.module.css */
+
+.container {
+  display: flex;
+  background-color: #121212; /* Dark mode background */
+  color: #ffffff; /* Text color for dark mode */
+  padding: 20px;
+  height: 100vh;
+}
+
+.comboList {
+  flex: 2; /* 70% of the width */
+  padding: 10px;
+  overflow-y: auto; /* Scroll if content overflows */
+}
+
+.sidebar {
+  flex: 1; /* 30% of the width */
+  padding: 10px;
+  background-color: #1e1e1e; /* Slightly lighter background for sidebar */
+  border-left: 1px solid #333; /* Border between the two sections */
+}
+
+.card {
+  background-color: #2c2c2c; /* Dark background for cards */
+  border: 1px solid #444; /* Border for cards */
+  border-radius: 10px;
+}
+
+.card .price {
+  color: #ffeb3b; /* Yellow color for price */
+}
+
+.addButton {
+  background-color: #ff5722; /* Orange color for add button */
+  border: none;
+}
+
+.quantityWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.inputNumber {
+  margin-right: 10px;
+}
+
+.sidebarTitle {
+  font-size: 20px;
+  color: #ffeb3b; /* Highlight color for title */
+  margin-bottom: 20px;
+}
+
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+}
+
+.cartTotal {
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.emptyCart {
+  text-align: center;
+  font-size: 18px;
+}
