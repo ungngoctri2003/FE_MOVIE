@@ -169,7 +169,8 @@ export default function User(props) {
       </div>
       <div className="mx-10">
         <p className="text-red-500 mx-5">
-          * Nhấn 2 lần vào tên người dùng để xem lịch sử đặt vé
+          * Nhấn 2 lần vào tên người dùng để xem lịch sử đặt vé và combo bỏng
+          nước đã mua
         </p>
         <Table
           onRow={(record, rowIndex) => {

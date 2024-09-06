@@ -27,8 +27,8 @@ export default function ComboEdit(props) {
     initialValues: {
       name: comboEdit.name,
       description: comboEdit.description,
-      imageUrl: null,
       price: comboEdit.price,
+      logo: null,
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Không được trống!"),
@@ -40,12 +40,11 @@ export default function ComboEdit(props) {
     onSubmit: (values) => {
       let formData = new FormData();
       for (var key in values) {
-        if (key !== "imageUrl") {
+        if (key !== "logo") {
           formData.append(key, values[key]);
         } else {
-          if (values[key] !== null) {
-            formData.append("combos", values.imageUrl, values.imageUrl.name);
-          }
+          if (values.logo !== null)
+            formData.append("popcorn_drinks", values.logo, values.logo.name);
         }
       }
       dispatch(capNhatComboAction(props.match.params.id, formData)).then(() => {
@@ -67,7 +66,7 @@ export default function ComboEdit(props) {
       reader.onload = (e) => {
         setSrcImg(e.target.result);
       };
-      formik.setFieldValue("imageUrl", file);
+      formik.setFieldValue("logo", file);
     }
   };
 
@@ -119,7 +118,7 @@ export default function ComboEdit(props) {
         <Form.Item label="Hình Ảnh">
           <input
             type="file"
-            name="imageUrl"
+            name="logo"
             onChange={handleFile}
             accept=".jpg, .jpeg, .png"
           />
@@ -127,9 +126,7 @@ export default function ComboEdit(props) {
           <img
             style={{ width: 150, height: 150 }}
             src={
-              srcImg === ""
-                ? `${DOMAIN_STATIC_FILE}${comboEdit.imageUrl}`
-                : srcImg
+              srcImg === "" ? `${DOMAIN_STATIC_FILE}${comboEdit.logo}` : srcImg
             }
             alt={`${srcImg}...`}
           />

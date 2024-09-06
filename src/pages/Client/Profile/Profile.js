@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Button, Tabs } from "antd";
+import { Tabs } from "antd";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -12,8 +13,12 @@ import {
   layChiTietNguoiDungAction,
 } from "../../../redux/Actions/QuanLyNguoiDungAction";
 import { danhSachVeTheoUserAction } from "../../../redux/Actions/QuanLyTicketAction";
+import { danhSachComboTheoUser } from "../../../redux/Actions/QuanLyComBoAction";
 import { DOMAIN_STATIC_FILE } from "../../../utils/Settings/config";
 import { Redirect } from "react-router-dom";
+import { checkoutServices } from "../../../services/CheckoutServices";
+import { formatPrice } from "../../../utils/formatPrice";
+
 export default function Profile(props) {
   const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
   if (JSON.stringify(userLogin) === "{}") {
@@ -30,6 +35,9 @@ export default function Profile(props) {
         <TabPane tab="Lịch sử đặt vé" key="2">
           <BookingHistory {...props} />
         </TabPane>
+        <TabPane tab="Combo đã mua" key="3">
+          <ComBoHistory {...props} />
+        </TabPane>
       </Tabs>
     </div>
   );
@@ -43,7 +51,6 @@ export function DetailsProfile(props) {
   useEffect(() => {
     dispatch(layChiTietNguoiDungAction(userLogin?.id));
   }, []);
-  console.log(userEdit);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -196,62 +203,56 @@ export function BookingHistory(props) {
       return (
         <li
           key={index}
-          className="flex flex-col py-4 sm:flex-row sm:justify-between"
+          className="flex flex-col mb-6 p-6 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-lg dark:bg-gray-800 dark:from-gray-700 dark:to-gray-900 sm:flex-row sm:justify-between hover:shadow-xl transition-shadow duration-300"
         >
-          <div className="flex w-full space-x-2 sm:space-x-4">
-            <div
-            // style={{
-            //   backgroundImage: `url(${DOMAIN_STATIC_FILE}${ticket.imgFilm})`,
-            //   backgroundSize: "cover",
-            //   backgroundPosition: "center",
-            // }}
-            >
+          <div className="flex flex-col items-center space-y-4 sm:space-y-0 sm:space-x-4 sm:flex-row">
+            <div className="relative flex items-center justify-center w-24 h-24 sm:w-32 sm:h-32">
               <img
-                className="flex-shrink-0 object-cover w-20 h-20 border-transparent rounded outline-none sm:w-32 sm:h-32 bg-coolGray-500 "
+                className="object-cover w-full h-full rounded-lg border border-gray-300 dark:border-gray-700"
                 src={`${DOMAIN_STATIC_FILE}${ticket.imgFilm}`}
                 alt={ticket.tenPhim}
               />
             </div>
-
-            <div className="flex flex-col justify-between text-base ">
-              <p className="dark:text-white">{`Tên phim : ${ticket.nameFilm} `}</p>
-              <p className="dark:text-white">{`Tên Rạp : ${ticket.groupName} / ${ticket.cinemaName}`}</p>
-              <p className="dark:text-white">{`Phòng : ${ticket.roomName} `}</p>
-              <p className="dark:text-white">
-                {`Ngày đặt : ${moment(
-                  _.head(ticket.lstTicket).createdAt
-                ).format("DD-MM-YYYY HH:mm A")}`}{" "}
-              </p>
-              <p className="dark:text-white">
-                {`Ngày Chiếu : ${moment(ticket.showDate).format(
+            <div className="flex flex-col justify-between flex-1 space-y-4">
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+                {ticket.nameFilm}
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-400">{`Rạp: ${ticket.groupName} / ${ticket.cinemaName}`}</p>
+              <p className="text-lg text-gray-600 dark:text-gray-400">{`Phòng: ${ticket.roomName}`}</p>
+              <p className="text-lg text-gray-600 dark:text-gray-400">
+                {`Ngày đặt: ${moment(_.head(ticket.lstTicket).createdAt).format(
                   "DD-MM-YYYY HH:mm A"
-                )}`}{" "}
+                )}`}
               </p>
-              <div className="flex">
-                <p className="dark:text-white"> Ghế số</p>
-                <div className="grid grid-cols-10 gap-2 ml-9">
-                  {ticket.lstTicket.map((ghe, index) => {
-                    return (
-                      <span className="mr-2 text-red-600" key={index}>
-                        {ghe.seatName}
-                      </span>
-                    );
-                  })}
+              <p className="text-lg text-gray-600 dark:text-gray-400">
+                {`Ngày chiếu: ${moment(ticket.showDate).format(
+                  "DD-MM-YYYY HH:mm A"
+                )}`}
+              </p>
+              <div className="flex flex-col space-y-2">
+                <p className="text-lg font-medium text-gray-800 dark:text-gray-300">
+                  Ghế số:
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {ticket.lstTicket.map((ghe, index) => (
+                    <span
+                      className="px-2 py-1 text-sm font-medium text-red-600 bg-red-100 rounded dark:bg-red-600 dark:text-red-100"
+                      key={index}
+                    >
+                      {ghe.seatName}
+                    </span>
+                  ))}
                 </div>
               </div>
-              <div
-                style={{
-                  height: "auto",
-                  maxWidth: 100,
-                  width: "100%",
-                }}
-              >
-                <QRCode
-                  size={256}
-                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                  value={JSON.stringify(qr_generate)}
-                  viewBox={`0 0 256 256`}
-                />
+              <div className="flex justify-center mt-4">
+                <div className="relative flex items-center justify-center w-24 h-24 sm:w-32 sm:h-32">
+                  <QRCode
+                    size={256}
+                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                    value={JSON.stringify(qr_generate)}
+                    viewBox={`0 0 256 256`}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -264,6 +265,72 @@ export function BookingHistory(props) {
       <div className="flex  flex-col max-w-3xl p-6 space-y-4 sm:p-10 bg-coolGray-50 text-coolGray-800">
         <ul className="flex  flex-col divide-y divide-coolGray-300">
           {renderTicket()}
+        </ul>
+      </div>
+    </div>
+  );
+}
+export function ComBoHistory(props) {
+  const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
+  const { lstComboWithUser } = useSelector((state) => state.QuanLyComboReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userLogin?.id) {
+      dispatch(danhSachComboTheoUser(userLogin.id));
+    }
+  }, [dispatch, userLogin]);
+
+  const renderCombos = () => {
+    console.log("check lstComboWithUser", lstComboWithUser);
+    return lstComboWithUser.map((combo, index) => {
+      return (
+        <li
+          key={index}
+          className="flex flex-col mb-6 p-6 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-lg dark:bg-gray-800 dark:from-gray-700 dark:to-gray-900 sm:flex-row sm:justify-between hover:shadow-xl transition-shadow duration-300"
+        >
+          <div className="flex w-full space-x-6">
+            <div className="relative w-24 h-24 sm:w-36 sm:h-36">
+              <img
+                className="object-cover w-full h-full rounded-lg"
+                src={`${DOMAIN_STATIC_FILE}${combo.comboImage}`}
+                alt={combo.comboName}
+              />
+              <div className="absolute top-0 left-0 p-1 text-lg font-semibold text-white bg-red-500 rounded-full dark:bg-red-600">
+                {combo.quantity}x
+              </div>
+            </div>
+            <div className="flex flex-col justify-between flex-1">
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+                {combo.comboName}
+              </h3>
+              <p className="text-lg text-gray-500 dark:text-gray-400">{`Phim: ${combo.nameFilm}`}</p>
+              <div className="flex items-center justify-between mt-4">
+                <div className="flex flex-col space-y-2">
+                  <p className="text-xl font-bold text-blue-600 dark:text-blue-400">{`${formatPrice(
+                    combo.price
+                  )} `}</p>
+                  <p className="text-2xl text-red-600 font-bold">{`Tổng giá: ${formatPrice(
+                    combo.price * combo.quantity
+                  )}`}</p>
+                </div>
+                <div className="text-right text-lg text-gray-400 dark:text-gray-500">
+                  <p>{moment(combo.createdAt).format("DD-MM-YYYY")}</p>
+                  <p>{moment(combo.createdAt).format("HH:mm A")}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      );
+    });
+  };
+
+  return (
+    <div className="flex items-center justify-around">
+      <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 bg-coolGray-50 text-coolGray-800">
+        <ul className="flex flex-col divide-y divide-coolGray-300">
+          {renderCombos()}
         </ul>
       </div>
     </div>

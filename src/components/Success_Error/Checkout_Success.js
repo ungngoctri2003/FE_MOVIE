@@ -3,6 +3,7 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { datVe } from "./../../redux/Actions/QuanLyTicketAction";
+import { taoCombo } from "./../../redux/Actions/QuanLyComBoAction";
 import io from "socket.io-client";
 import Countdown from "react-countdown";
 import { DOMAIN_STATIC_FILE } from "../../utils/Settings/config";
@@ -15,6 +16,7 @@ export default function Checkout_Success(props) {
   useEffect(() => {
     const data = JSON.parse(sessionStorage.getItem("STORE"));
     dispatch(datVe(data));
+    dispatch(taoCombo(data));
     setTime(Date.now() + 0.3 * 60 * 1000);
   }, []);
 

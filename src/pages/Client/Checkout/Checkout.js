@@ -48,6 +48,7 @@ export default function Checkout(props) {
   const dispatch = useDispatch();
 
   const listCombo = useSelector((state) => state.QuanLyBongNuocReducer.cart);
+
   const handleIncreaseQuantity = useCallback(
     (comboId) => {
       dispatch(updateComboQuantity(comboId, 1)); // Tăng số lượng combo
@@ -75,6 +76,7 @@ export default function Checkout(props) {
   const listGheDangDat = useSelector(
     (state) => state.QuanLySeatsReducer.listGheDangDat
   );
+  console.log("Log listGheDangDat", listGheDangDat);
   const showTimeEdit = useSelector(
     (state) => state.QuanLyLichChieuReducer.showTimeEdit
   );
@@ -469,6 +471,7 @@ export default function Checkout(props) {
               if (listGheDangDat.length > 0) {
                 const thongTinVeDat = {
                   user: userLogin,
+                  listCombos: listCombo,
                   listTicket: listGheDangDat,
                   idShowTime: props.match.params.id,
                   film: film,
@@ -479,13 +482,35 @@ export default function Checkout(props) {
                   JSON.stringify(thongTinVeDat)
                 );
 
-                const data = listGheDangDat.map((ghe) => ({
+                const ticketData = listGheDangDat.map((ghe) => ({
                   name: ghe.seatName,
                   sku: "ticket",
                   price: ghe.price,
                   currency: "USD",
                   quantity: 1,
                 }));
+
+                // const thongTinComboDat = {
+                //   user: userLogin,
+                //   listCombos: listCombo,
+                //   idShowTime: props.match.params.id,
+                //   film: film,
+                //   email: userLogin.email,
+                // };
+                // window.sessionStorage.setItem(
+                //   "STORE",
+                //   JSON.stringify(thongTinComboDat)
+                // );
+
+                const comboData = listCombo.map((combo) => ({
+                  name: combo.name,
+                  sku: "combo",
+                  price: combo.price,
+                  currency: "USD",
+                  quantity: combo.quantity,
+                }));
+
+                const data = [...ticketData, ...comboData];
                 dispatch(RequirementCheckoutAction(data));
               } else {
                 alert("Bạn cần chọn ghế ngồi");
