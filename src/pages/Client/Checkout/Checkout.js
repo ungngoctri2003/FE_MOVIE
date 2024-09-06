@@ -8,9 +8,10 @@ import React, {
 import { useDispatch, useSelector } from "react-redux";
 import style from "../Checkout/Checkout.module.css";
 import "../Checkout/Checkout.css";
-import { Tooltip, Modal } from "antd";
+import { Tooltip, Modal, Button } from "antd";
 import {
   ArrowLeftOutlined,
+  DeleteOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import _ from "lodash";
@@ -28,6 +29,12 @@ import RoomSizeS from "../../../components/Room/SizeS";
 import { sizeConst } from "../../../constants/roomSize";
 import RoomNoraml from "../../../components/Room/Normal";
 import axios from "axios";
+import PopcornDrinks from "../BongNuoc/BongNuoc";
+import {
+  removeCombo,
+  updateComboQuantity,
+} from "../../../redux/Actions/QuanLyBongNuocAction";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const { confirm } = Modal;
 export default function Checkout(props) {
@@ -39,6 +46,31 @@ export default function Checkout(props) {
 
   const { id } = props.match.params;
   const dispatch = useDispatch();
+
+  const listCombo = useSelector((state) => state.QuanLyBongNuocReducer.cart);
+  const handleIncreaseQuantity = useCallback(
+    (comboId) => {
+      dispatch(updateComboQuantity(comboId, 1)); // Tăng số lượng combo
+    },
+    [dispatch]
+  );
+
+  const handleDecreaseQuantity = useCallback(
+    (comboId) => {
+      dispatch(updateComboQuantity(comboId, -1)); // Giảm số lượng combo
+    },
+    [dispatch]
+  );
+  const handleRemoveCombo = useCallback(
+    (comboId) => {
+      dispatch(removeCombo(comboId)); // Xử lý xóa combo
+    },
+    [dispatch]
+  );
+  // Tính tổng tiền combo
+  // const totalComboPrice = listCombo.reduce((total, combo) => {
+  //   return total + combo.price * combo.quantity;
+  // }, 0);
 
   const listGheDangDat = useSelector(
     (state) => state.QuanLySeatsReducer.listGheDangDat
@@ -62,6 +94,22 @@ export default function Checkout(props) {
     };
   }, [userLogin, id, listGheDangDat]);
   listGheRef.current = listGheDangDat;
+
+  // Tính tổng tiền vé
+  const totalTicketPrice = useMemo(() => {
+    return listGheDangDat.reduce((tong, ghe) => tong + Number(ghe.price), 0);
+  }, [listGheDangDat]);
+
+  // Tính tổng tiền combo
+  const totalComboPrice = useMemo(() => {
+    return listCombo.reduce(
+      (tong, combo) => tong + combo.quantity * combo.price,
+      0
+    );
+  }, [listCombo]);
+
+  // Tổng tiền (vé + combo)
+  const totalPrice = totalTicketPrice + totalComboPrice;
 
   useEffect(() => {
     sessionStorage.removeItem("STORE");
@@ -102,7 +150,7 @@ export default function Checkout(props) {
   //! Function
   const showLeaveConfirm = () => {
     confirm({
-      title: "Bạn có chắc muốn rời khỏi phòng đặt vé ?",
+      title: "Bạn có chắc muốn rời khỏi phòng Đặt vé ?",
       icon: <ExclamationCircleOutlined />,
       okText: "Yes",
       cancelType: "success",
@@ -176,7 +224,9 @@ export default function Checkout(props) {
   };
   return (
     <div className="grid grid-cols-12 h-screen">
-      <div className="container pt-5 col-span-9 dark:bg-slate-900">
+      {/* Main Content */}
+      <div className="col-span-9 p-5 dark:bg-slate-900 overflow-y-auto">
+        {/* Back Button */}
         <div
           onClick={() => {
             if (listGheDangDat.length > 0) {
@@ -185,70 +235,72 @@ export default function Checkout(props) {
               history.push("/");
             }
           }}
-          className="flex justify-left align-center mb-3 cursor-pointer"
+          className="flex items-center mb-4 cursor-pointer"
         >
-          <Tooltip placement="right" title="Qua lại trang home" color="blue">
-            <p>
-              <ArrowLeftOutlined style={{ fontSize: 25, color: "#DB4848" }} />
-            </p>
+          <Tooltip placement="right" title="Trở về trang home" color="blue">
+            <ArrowLeftOutlined style={{ fontSize: 25, color: "#DB4848" }} />
           </Tooltip>
         </div>
-        <div className="flex justify-between">
-          <div className="flex">
+
+        {/* Film and Show Information */}
+        <div className="flex justify-between items-start bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+          <div className="flex items-center">
             <img
-              style={{ width: 50, height: 50, borderRadius: 50 }}
+              className="w-16 h-16 rounded-full"
               src={`${DOMAIN_STATIC_FILE}${film?.imgFilm}`}
               alt={film?.imgFilm}
             />
-
-            <div className="ml-3 ">
-              <h3 className="mb-0 dark:text-white">
-                {film.groupName} - Rạp {film.rapChieu} - Phòng {}
+            <div className="ml-4">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                {film.groupName} - Rạp {film.rapChieu} - Phòng{" "}
                 {showTimeEdit?.room?.roomName}
               </h3>
-              <p className="mb-0 text-gray-500 font-bold opacity-50 dark:text-white">
-                -{moment(film.showDate).format("DD/MM/YYYY hh:mm A")}{" "}
+              <p className="text-gray-600 dark:text-gray-300">
+                {moment(film.showDate).format("DD/MM/YYYY hh:mm A")}
               </p>
             </div>
           </div>
-          <div>
-            <p className="mb-0 text-gray-500 dark:text-white">
+          <div className="text-center">
+            <p className="text-gray-600 dark:text-gray-300">
               Thời gian giữ ghế
             </p>
-            <h2 className="mb-0 text-2xl text-center text-red-600 dark:text-white">
-              {
-                <Countdown
-                  onComplete={() => {
-                    socket.emit("leaveRroom", data);
-                    alert("Quá thời gian đặt Vé");
-                    history.push("/");
-                  }}
-                  daysInHours
-                  date={state}
-                />
-              }
+            <h2 className="text-2xl font-bold text-red-600 dark:text-white">
+              <Countdown
+                onComplete={() => {
+                  socket.emit("leaveRroom", data);
+                  alert("Quá thời gian Đặt vé");
+                  history.push("/");
+                }}
+                daysInHours
+                date={state}
+              />
             </h2>
           </div>
         </div>
-        <div>
-          <div className="h-2 w-full bg-black mt-3 opacity-80"></div>
-          <div className="mb-12" id={style.trapezoid}>
-            <h4 className="pt-1 text-center text-black dark:text-white">
-              Screen
-            </h4>
+
+        {/* Screen Section */}
+        <div className="my-6 text-center">
+          <div className="h-2 w-full bg-black opacity-80 rounded-full"></div>
+          <div className="relative mt-6">
+            <div className={`${style.trapezoid} bg-gray-300 dark:bg-gray-700`}>
+              <h4 className="text-lg text-black dark:text-white">Screen</h4>
+            </div>
           </div>
-          <div className="text-center">{renderListGhe()}</div>
+          <div className="mt-4">{renderListGhe()}</div>
         </div>
-        {/* table Màu */}
-        <div className="mt-5">
-          <table className="table-auto min-w-full text-center">
+
+        {/* Color Legend */}
+        <div className="mt-8">
+          <table className="table-auto w-full text-center border-separate border-spacing-2">
             <thead>
               <tr>
-                <th className="w-10 dark:text-white">Ghế Trống</th>
-                <th className="w-10 dark:text-white">Ghế Đã đặt</th>
-                <th className="w-10 dark:text-white">Ghế Bạn Đặt</th>
-                <th className="w-10 dark:text-white">Ghế bạn đang chọn</th>
-                <th className="w-10 dark:text-white">Ghế đang giữ</th>
+                <th className="text-gray-700 dark:text-white">Ghế Trống</th>
+                <th className="text-gray-700 dark:text-white">Ghế Đã Đặt</th>
+                <th className="text-gray-700 dark:text-white">Ghế Bạn Đặt</th>
+                <th className="text-gray-700 dark:text-white">
+                  Ghế Bạn Đang Chọn
+                </th>
+                <th className="text-gray-700 dark:text-white">Ghế Đang Giữ</th>
               </tr>
             </thead>
             <tbody>
@@ -262,97 +314,188 @@ export default function Checkout(props) {
             </tbody>
           </table>
         </div>
+
+        {/* Popcorn and Drinks */}
+        <div className="mt-8">
+          <PopcornDrinks />
+        </div>
       </div>
 
-      <div
-        className={`col-span-3 px-9 pt-5 flex flex-col dark:bg-slate-900  ${style.shadow_right}`}
-      >
-        <div>
-          <div className="text-center text-2xl text-green-600 my-3">
-            <span>
-              {listGheDangDat
-                .reduce((tong, ghe, index) => {
-                  return (tong += Number(ghe.price));
-                }, 0)
-                .toLocaleString()}
-              $
-            </span>
-          </div>
-          <hr />
+      {/* Sidebar */}
+      <div className="col-span-3 p-6 bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl">
+        <div className="flex flex-col space-y-6">
+          <hr className="border-gray-300 dark:border-gray-600" />
 
-          <div className="my-3">
-            <h3 className="dark:text-white">{film.nameFilm}</h3>
-            <p className="mb-1 dark:text-white">
-              Rạp : {film.groupName} - {film.rapChieu}
+          {/* Film Details */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+              {film.nameFilm}
+            </h3>
+            <p className="text-lg text-gray-700 dark:text-gray-300">
+              Rạp: {film.groupName} - {film.rapChieu}
             </p>
-            <p className="dark:text-white">
-              Phòng : {showTimeEdit?.room?.roomName}
+            <p className="text-lg text-gray-700 dark:text-gray-300">
+              Phòng: {showTimeEdit?.room?.roomName}
             </p>
-            <p className="mb-1 dark:text-white">
+            <p className="text-lg text-gray-700 dark:text-gray-300">
               Thời gian chiếu:{" "}
               {moment(film.showDate).format("DD/MM/YYYY hh:mm A")}
             </p>
           </div>
-          <hr />
-          <div className="text-lg text-left grid grid-cols-5 my-3 ">
-            <div>
-              <span className="text-red-600  mb-0 dark:text-white">Ghế</span>
+
+          <hr className="border-gray-300 dark:border-gray-600" />
+
+          {/* Selected Seats */}
+          <div className="grid grid-cols-5 gap-2 items-center">
+            <span className="text-red-600 dark:text-white font-semibold text-lg">
+              Ghế
+            </span>
+            <div className="col-span-4 flex flex-wrap gap-2">
+              {_.sortBy(listGheDangDat, ["seatName"]).map((ghe, index) => (
+                <span
+                  key={index}
+                  className="bg-gray-300 dark:bg-gray-600 rounded-md px-3 py-1 text-gray-800 dark:text-gray-200 font-medium"
+                >
+                  {ghe.seatName}
+                </span>
+              ))}
             </div>
-            <div className="col-span-4">
-              <span>
-                {" "}
-                {_.sortBy(listGheDangDat, ["seatName"]).map((ghe, index) => {
-                  return <span key={index}> {ghe.seatName}</span>;
-                })}
+          </div>
+          {/* Total Price */}
+          <div className="flex justify-between">
+            <p className=" dark:text-white font-semibold text-lg">Tiền vé</p>
+            <div className="text-center text-xl font-bold text-green-600">
+              {listGheDangDat
+                .reduce((tong, ghe) => tong + Number(ghe.price), 0)
+                .toLocaleString()}{" "}
+              VNĐ
+            </div>
+          </div>
+
+          <hr className="border-gray-300 dark:border-gray-600" />
+          {/* Selected Combos */}
+          <div className=" from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 overflow-hidden">
+            <h3 className="text-red-600 dark:text-white font-semibold text-lg mb-0">
+              Combo Đã chọn
+            </h3>
+
+            <div className="p-4 max-h-72 overflow-y-auto">
+              {listCombo.length > 0 ? (
+                listCombo.map((combo) => (
+                  <div
+                    key={combo.id}
+                    className="flex items-center justify-between p-4 mb-4 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md transition-transform transform hover:scale-105"
+                  >
+                    <span className="flex-1 text-gray-800 dark:text-gray-200 truncate">
+                      {combo.name}
+                    </span>
+                    <div className="flex items-center">
+                      <button
+                        className="px-2 py-1 bg-red-500 text-white rounded"
+                        onClick={() => handleDecreaseQuantity(combo.id)}
+                      >
+                        -
+                      </button>
+                      <span className="text-gray-600 dark:text-gray-300 mx-2">
+                        {combo.quantity}
+                      </span>
+                      <button
+                        className="px-2 py-1 bg-green-500 text-white rounded"
+                        onClick={() => handleIncreaseQuantity(combo.id)}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <span className="text-gray-600 dark:text-gray-300 ml-2 font-medium">
+                      {formatPrice(combo.price * combo.quantity)}
+                    </span>
+                    <button
+                      onClick={() => handleRemoveCombo(combo.id)}
+                      className="flex justify-center ml-2 text-red-600 hover:text-red-800 dark:text-red-400 bg-transparent hover:bg-red-100 dark:hover:bg-red-800 active:bg-red-200 dark:active:bg-red-900 focus:outline-none focus:ring focus:ring-red-300 dark:focus:ring-red-600 p-2 rounded-full transition ease-in-out duration-150"
+                    >
+                      <DeleteOutlined className="text-xl" />
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-gray-500 dark:text-gray-400">
+                  Bạn chưa chọn combo nào.
+                </p>
+              )}
+            </div>
+            <div className="flex justify-between">
+              <span className="dark:text-white font-semibold text-lg mr-5">
+                Tiền combo
+              </span>
+              <span className="text-xl font-bold text-green-600">
+                {totalComboPrice.toLocaleString()} VNĐ
               </span>
             </div>
           </div>
-          <hr />
-          <div className="my-3">
-            <p className="mb-1 text-gray-500 dark:text-white">E-mail</p>
-            <p className="mb-0 dark:text-white">{userLogin.email}</p>
-          </div>
-          <hr />
-          <div className="my-3">
-            <p className="mb-1 text-gray-500 dark:text-white">Phone</p>
-            <p className="mb-0 dark:text-white">{userLogin.phoneNumber}</p>
-          </div>
-          <hr />
-        </div>
-        <div
-          onClick={() => {
-            if (JSON.stringify(listGheDangDat) !== "[]") {
-              const thongTinVeDat = {
-                user: userLogin,
-                listTicket: listGheDangDat,
-                idShowTime: props.match.params.id,
-                film: film,
-                email: userLogin.email,
-              };
-              window.sessionStorage.setItem(
-                "STORE",
-                JSON.stringify(thongTinVeDat)
-              );
 
-              let data = [];
-              let obj = {};
-              for (let index = 0; index < listGheDangDat.length; index++) {
-                obj.name = listGheDangDat[index].seatName;
-                obj.sku = "ticket";
-                obj.price = listGheDangDat[index].price * 1;
-                obj.currency = "USD";
-                obj.quantity = 1;
-                data.push(obj);
+          <hr className="border-gray-300 dark:border-gray-600" />
+          <div className="flex justify-between">
+            <p className="text-red-600 font-semibold text-xl mr-5">
+              Thành tiền
+            </p>
+            <div className="text-center text-xl font-bold text-green-600">
+              {totalPrice.toLocaleString()} VNĐ
+            </div>
+          </div>
+          {/* User Details */}
+          <div>
+            <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">
+              E-mail
+            </p>
+            <p className="text-gray-800 dark:text-white text-xl font-medium">
+              {userLogin.email}
+            </p>
+          </div>
+
+          <hr className="border-gray-300 dark:border-gray-600" />
+
+          <div>
+            <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">
+              Phone
+            </p>
+            <p className="text-gray-800 dark:text-white text-xl font-medium">
+              {userLogin.phoneNumber}
+            </p>
+          </div>
+
+          {/* Book Ticket Button */}
+          <div
+            onClick={() => {
+              if (listGheDangDat.length > 0) {
+                const thongTinVeDat = {
+                  user: userLogin,
+                  listTicket: listGheDangDat,
+                  idShowTime: props.match.params.id,
+                  film: film,
+                  email: userLogin.email,
+                };
+                window.sessionStorage.setItem(
+                  "STORE",
+                  JSON.stringify(thongTinVeDat)
+                );
+
+                const data = listGheDangDat.map((ghe) => ({
+                  name: ghe.seatName,
+                  sku: "ticket",
+                  price: ghe.price,
+                  currency: "USD",
+                  quantity: 1,
+                }));
+                dispatch(RequirementCheckoutAction(data));
+              } else {
+                alert("Bạn cần chọn ghế ngồi");
               }
-              dispatch(RequirementCheckoutAction(data));
-            } else {
-              alert("Bạn cần chọn ghế ngồi ");
-            }
-          }}
-          className="mb-1 cursor-pointer"
-        >
-          <div className="py-3 rounded bg-red-500 text-white text-lg text-center">
-            ĐẶT VÉ
+            }}
+            className="mt-6"
+          >
+            <div className="py-4 rounded-xl bg-red-600 text-white text-2xl font-bold text-center cursor-pointer transition-transform transform hover:scale-105">
+              Đặt vé
+            </div>
           </div>
         </div>
       </div>

@@ -3,7 +3,8 @@ import { quanLyBongNuocServices } from "../../services/QuanLyBongNuocService";
 import {
   SET_COMBOS,
   COMBO_EDIT,
-  CHON_COMBO,
+  ADD_TO_CART,
+  UPDATE_CART,
 } from "../Types/QuanLyBongNuocType";
 import { message } from "antd";
 import { DISPLAY_LOADING, HIDDEN_LOADING } from "../Types/LoadingType";
@@ -127,3 +128,26 @@ export const capNhatComboAction = (id, comboEdit) => {
     }
   };
 };
+export const addToCart = (combo) => {
+  return {
+    type: ADD_TO_CART,
+    payload: combo,
+  };
+};
+
+export const updateCart = (cart) => {
+  return {
+    type: UPDATE_CART,
+    payload: cart,
+  };
+};
+export const updateComboQuantity = (comboId, change) => {
+  return {
+    type: "UPDATE_COMBO_QUANTITY",
+    payload: { comboId, change },
+  };
+};
+export const removeCombo = (comboId) => ({
+  type: "REMOVE_COMBO",
+  payload: comboId,
+});
