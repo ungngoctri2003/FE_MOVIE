@@ -75,36 +75,39 @@ export default function Template(props) {
                 <div className="logo" />
                 <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
                   <Menu.Item key="1" icon={<HomeOutlined />}>
-                    <NavLink to="/Admin/Home">Dashboard</NavLink>
+                    <NavLink to="/Admin/Home">Dashboard Vé</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="2" icon={<UserOutlined />}>
-                    <NavLink to="/Admin/Users">Tài Khoản</NavLink>
+                  <Menu.Item key="2" icon={<ShopOutlined />}>
+                    <NavLink to="/Admin/HomeCombo">Dashboard Combo</NavLink>
                   </Menu.Item>
                   <Menu.Item key="3" icon={<UserOutlined />}>
+                    <NavLink to="/Admin/Users">Tài Khoản</NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="4" icon={<UserOutlined />}>
                     <NavLink to="/Admin/Combo">Combo</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="4" icon={<ClusterOutlined />}>
+                  <Menu.Item key="5" icon={<ClusterOutlined />}>
                     <NavLink to="/Admin/GroupCinemas">Cụm Rạp</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="5" icon={<ShopOutlined />}>
+                  <Menu.Item key="6" icon={<ShopOutlined />}>
                     <NavLink to="/Admin/Cinemas">Rạp Chiếu</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="6" icon={<DesktopOutlined />}>
+                  <Menu.Item key="7" icon={<DesktopOutlined />}>
                     <NavLink to="/Admin/Rooms">Phòng</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="7" icon={<VideoCameraOutlined />}>
+                  <Menu.Item key="8" icon={<VideoCameraOutlined />}>
                     <NavLink to="/Admin/Films">Phim</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="8" icon={<CalendarOutlined />}>
+                  <Menu.Item key="9" icon={<CalendarOutlined />}>
                     <NavLink to="/Admin/ShowTimes">Lịch Chiếu</NavLink>
                   </Menu.Item>
-                  <Menu.Item disabled key="9" icon={<WomanOutlined />}>
+                  <Menu.Item disabled key="10" icon={<WomanOutlined />}>
                     <NavLink to="/Admin/TypeUsers">Loại Người Dùng</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="10" icon={<WomanOutlined />}>
+                  <Menu.Item key="11" icon={<WomanOutlined />}>
                     <NavLink to="/Admin/Banners">Banner</NavLink>
                   </Menu.Item>
-                  <Menu.Item key="11" icon={<BellOutlined />}>
+                  <Menu.Item key="12" icon={<BellOutlined />}>
                     <NavLink to="/Admin/Feedback">Feedback</NavLink>
                   </Menu.Item>
                 </Menu>

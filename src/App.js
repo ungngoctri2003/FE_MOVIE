@@ -6,6 +6,7 @@ import { Form } from "./templates/AdminTemplate/Form/Form";
 import SignIn from "./pages/Admin/SignIn/SignIn";
 import Template from "./templates/AdminTemplate/Template/Template";
 import Home from "./pages/Admin/Home/Home";
+import HomeComBo from "./pages/Admin/HomeCombo/HomeCombo";
 import User from "./pages/Admin/User/User";
 import UserEdit from "./pages/Admin/User/Edit/UserEdit";
 import UserCreate from "./pages/Admin/User/Create/UserCreate";
@@ -90,6 +91,7 @@ export default function App() {
         <Form path="/signIn" exact Component={SignIn} />
         {/* admin */}
         <Template path="/Admin/Home" exact Component={Home} />
+        <Template path="/Admin/HomeCombo" exact Component={HomeComBo} />
         {/* User */}
         <Template path="/Admin/Users" exact Component={User} />
         <Template path="/Admin/Users/Edit/:id" exact Component={UserEdit} />

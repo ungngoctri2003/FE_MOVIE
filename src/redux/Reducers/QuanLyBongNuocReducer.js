@@ -3,6 +3,7 @@ import {
   SET_COMBOS,
   ADD_TO_CART,
   UPDATE_CART,
+  SET_DETAIL_COMBO,
 } from "../Types/QuanLyBongNuocType";
 import { ComboModel } from "../../_core/Models/ComboModel";
 
@@ -10,6 +11,7 @@ const initialState = {
   lstCombos: [],
   comboEdit: new ComboModel(),
   cart: [],
+  detailCombo: {},
 };
 
 export default (state = initialState, action) => {
@@ -46,6 +48,9 @@ export default (state = initialState, action) => {
         ...state,
         cart: state.cart.filter((combo) => combo.id !== action.payload),
       };
+    }
+    case SET_DETAIL_COMBO: {
+      return { ...state, detailCombo: action };
     }
     default:
       return state;

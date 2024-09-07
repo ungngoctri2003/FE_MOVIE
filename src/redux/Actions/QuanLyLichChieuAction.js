@@ -164,3 +164,25 @@ export const lichChieuTheoHeThongRap = (idFilm = "") => {
     }
   };
 };
+export const ChangeStatusShowTimeAction = (id, isActive) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: DISPLAY_LOADING,
+      });
+      const result = await quanLyLichChieuServices.changeStatus(id, isActive);
+      if (result.status === 200) {
+        dispatch({
+          type: HIDDEN_LOADING,
+        });
+        message.success("Thay đổi trạng thái thành công");
+        dispatch(layDanhSachLichChieuAction()); // Lấy lại danh sách combo sau khi thay đổi
+      }
+    } catch (error) {
+      dispatch({
+        type: HIDDEN_LOADING,
+      });
+      message.error("Thay đổi trạng thái thất bại");
+    }
+  };
+};

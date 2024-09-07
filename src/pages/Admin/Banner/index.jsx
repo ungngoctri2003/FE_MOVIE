@@ -27,7 +27,6 @@ import { DOMAIN_STATIC_FILE } from "../../../utils/Settings/config";
 export default function Banner(props) {
   const { listUser } = useSelector((state) => state.QuanLyNguoiDungReducer);
   const { lstBanner } = useSelector((state) => state.BannerReducer);
-  console.log("lst", lstBanner);
   const confirm = (id, status) => {
     if (status === "hidden") {
       dispatch(ChangeStatusBannerAction(id, { isActive: false }));

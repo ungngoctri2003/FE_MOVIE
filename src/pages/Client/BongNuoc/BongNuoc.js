@@ -24,6 +24,7 @@ const { Title, Text } = Typography;
 
 const PopcornDrinks = () => {
   const [combos, setCombos] = useState([]);
+  const listcombos = combos?.filter((item) => item.isActive === true);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantities, setQuantities] = useState({});
@@ -113,7 +114,7 @@ const PopcornDrinks = () => {
         </Title>
         <Divider className="border-gray-300 dark:border-gray-700" />
         <Row gutter={[24, 24]}>
-          {combos.map((combo) => (
+          {listcombos.map((combo) => (
             <Col span={12} lg={8} key={combo.id}>
               <Card
                 hoverable
@@ -151,14 +152,14 @@ const PopcornDrinks = () => {
                             onChange={(value) =>
                               handleQuantityChange(combo.id, value)
                             }
-                            className="w-24 rounded-lg border-gray-300 dark:border-gray-600 focus:border-primary-500"
+                            className="w-auto rounded-lg border-gray-300 dark:border-gray-600 focus:border-primary-500"
                           />
                           <Button
                             type="primary"
                             onClick={() =>
                               handleAddToCart(combo, quantities[combo.id] || 0)
                             }
-                            className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white rounded-lg px-4 py-2 transition-colors duration-300"
+                            className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white rounded-lg  py-2 transition-colors duration-300"
                           >
                             Thêm vào giỏ hàng
                           </Button>

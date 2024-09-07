@@ -25,9 +25,9 @@ export class QuanLyComboServices extends baseServices {
     return this.get(`/comboBy/total/day?year=${year}&month=${month}`);
   };
 
-  // Đếm số lượng combo theo ngày
-  laySoLuongComboTheoNgay = (year, month) => {
-    return this.post(`/comboBy/count/day`, { year, month });
+  // Đếm combo theo ngày
+  layComboTheoNgay = (year, month, day) => {
+    return this.post(`/comboBy/day`, { year, month, day });
   };
 }
 

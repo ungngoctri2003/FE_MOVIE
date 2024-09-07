@@ -21,8 +21,8 @@ export class QuanLyTicketServices extends baseServices {
   getTopMoviesInMonth = (year, month) => {
     return this.get(`/tickets/topMoviesInMonth?year=${year}&month=${month}`);
   };
-  getTicketCountByDay = (year, month) => {
-    return this.get(`/tickets/countByDay?year=${year}&month=${month}`);
+  layTicketTheoNgay = (year, month, day) => {
+    return this.post(`/tickets/day`, { year, month, day });
   };
 }
 export const quanLyTicketServices = new QuanLyTicketServices();

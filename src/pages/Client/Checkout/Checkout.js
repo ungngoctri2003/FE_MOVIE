@@ -76,7 +76,6 @@ export default function Checkout(props) {
   const listGheDangDat = useSelector(
     (state) => state.QuanLySeatsReducer.listGheDangDat
   );
-  console.log("Log listGheDangDat", listGheDangDat);
   const showTimeEdit = useSelector(
     (state) => state.QuanLyLichChieuReducer.showTimeEdit
   );

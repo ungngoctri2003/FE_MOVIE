@@ -19,6 +19,9 @@ export class QuanLyBongNuocServices extends baseServices {
   capNhatCombo = (id, dataUpdate) => {
     return this.put(`/combos/${id}`, dataUpdate);
   };
+  changeStatus = (id, data) => {
+    return this.put(`/combos/status/${id}`, data);
+  };
 }
 
 export const quanLyBongNuocServices = new QuanLyBongNuocServices();

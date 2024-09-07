@@ -1,18 +1,32 @@
 import React, { useEffect } from "react";
-import { Table, Button, Input } from "antd";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Button, Input, Popconfirm } from "antd";
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined,
+} from "@ant-design/icons";
 import { history } from "./../../../App";
 import moment from "moment";
 import _ from "lodash";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  ChangeStatusShowTimeAction,
   layDanhSachLichChieuAction,
   xoaLichChieuAction,
 } from "../../../redux/Actions/QuanLyLichChieuAction";
 export default function ShowTime(props) {
   const dispatch = useDispatch();
   const { lstShowTime } = useSelector((state) => state.QuanLyLichChieuReducer);
+  // const confirm = (id, status) => {
+  //   if (status === "hidden") {
+  //     dispatch(ChangeStatusShowTimeAction(id, { isActive: false }));
+  //   } else {
+  //     dispatch(ChangeStatusShowTimeAction(id, { isActive: true }));
+  //   }
+  // };
   useEffect(() => {
     dispatch(layDanhSachLichChieuAction());
   }, []);

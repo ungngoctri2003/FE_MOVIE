@@ -3,10 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   layDanhSachComboAction,
   xoaComboAction,
+  ChangeStatusComboAction,
 } from "../../../redux/Actions/QuanLyBongNuocAction";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined,
+} from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import { Button, Input, Table } from "antd";
+import { Button, Input, Popconfirm, Table } from "antd";
 import { history } from "../../../App";
 import { DOMAIN_STATIC_FILE } from "../../../utils/Settings/config";
 
@@ -16,7 +23,13 @@ export default function Combos(props) {
   useEffect(() => {
     dispatch(layDanhSachComboAction());
   }, [dispatch]);
-
+  const confirm = (id, status) => {
+    if (status === "hidden") {
+      dispatch(ChangeStatusComboAction(id, { isActive: false }));
+    } else {
+      dispatch(ChangeStatusComboAction(id, { isActive: true }));
+    }
+  };
   const columns = [
     {
       title: "STT",
@@ -67,6 +80,47 @@ export default function Combos(props) {
       dataIndex: "price",
       key: "price",
       sorter: (a, b) => a.price - b.price,
+      width: "10%",
+    },
+    {
+      title: "Hidden/Display",
+      dataIndex: "isActive",
+      render: (text, combo) => {
+        if (combo.isActive) {
+          return (
+            <Popconfirm
+              placement="top"
+              title="Bạn có muốn ẩn banner này ?"
+              onConfirm={() => {
+                confirm(combo.id, "hidden");
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <div className="hover:text-green-500 cursor-pointer">
+                <EyeOutlined style={{ fontSize: 20 }} />
+              </div>
+            </Popconfirm>
+          );
+        } else {
+          return (
+            <Popconfirm
+              placement="top"
+              title="Bạn có muốn hiện thị banner này ?"
+              onConfirm={() => {
+                confirm(combo.id, "display");
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <div className="hover:text-yellow-400 cursor-pointer">
+                <EyeInvisibleOutlined style={{ fontSize: 20 }} />
+              </div>
+            </Popconfirm>
+          );
+        }
+      },
+      width: "10%",
     },
     {
       title: "",

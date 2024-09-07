@@ -1,5 +1,8 @@
 import { history } from "../../App";
-import { quanLyBongNuocServices } from "../../services/QuanLyBongNuocService";
+import {
+  QuanLyBongNuocServices,
+  quanLyBongNuocServices,
+} from "../../services/QuanLyBongNuocService";
 import {
   SET_COMBOS,
   COMBO_EDIT,
@@ -151,3 +154,25 @@ export const removeCombo = (comboId) => ({
   type: "REMOVE_COMBO",
   payload: comboId,
 });
+export const ChangeStatusComboAction = (id, isActive) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: DISPLAY_LOADING,
+      });
+      const result = await quanLyBongNuocServices.changeStatus(id, isActive);
+      if (result.status === 200) {
+        dispatch({
+          type: HIDDEN_LOADING,
+        });
+        message.success("Thay đổi trạng thái thành công");
+        dispatch(layDanhSachComboAction()); // Lấy lại danh sách combo sau khi thay đổi
+      }
+    } catch (error) {
+      dispatch({
+        type: HIDDEN_LOADING,
+      });
+      message.error("Thay đổi trạng thái thất bại");
+    }
+  };
+};
