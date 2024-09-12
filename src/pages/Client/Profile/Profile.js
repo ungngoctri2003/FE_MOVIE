@@ -17,7 +17,7 @@ import { danhSachComboTheoUser } from "../../../redux/Actions/QuanLyComBoAction"
 import { DOMAIN_STATIC_FILE } from "../../../utils/Settings/config";
 import { Redirect } from "react-router-dom";
 import { checkoutServices } from "../../../services/CheckoutServices";
-import { formatPrice } from "../../../utils/formatPrice";
+import { formatDiem, formatPrice } from "../../../utils/formatPrice";
 
 export default function Profile(props) {
   const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
@@ -59,6 +59,7 @@ export function DetailsProfile(props) {
       userName: userEdit.userName,
       password: "",
       phoneNumber: userEdit.phoneNumber,
+      points: userEdit?.points,
     },
     onSubmit: (values) => {
       dispatch(capNhatNguoiDungAction(userEdit.id, values));
@@ -73,6 +74,7 @@ export function DetailsProfile(props) {
         .min(6, "Bạn cần nhập ít nhất 6 kí tự")
         .max(9, "Bạn cần nhập ít hơn 10 kí tự"),
       phoneNumber: Yup.string().required("Số ĐT Không được trống"),
+      points: Yup.number().required("Không được trống !"),
     }),
   });
 
@@ -115,6 +117,22 @@ export function DetailsProfile(props) {
               {formik.errors.userName && formik.touched.userName && (
                 <p className="text-red-700 mb-0">{formik.errors.userName}</p>
               )}
+            </div>
+          </div>
+          {/* User Points */}
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Điểm tích lũy
+              </label>
+              <input
+                name="points"
+                value={formatDiem(formik.values.points)}
+                disabled
+                className="appearance-none block w-full bg-gray-200 text-gray-700  rounded py-3 px-4 mb-3 leading-tight border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-500"
+                type="text"
+                placeholder="0"
+              />
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">

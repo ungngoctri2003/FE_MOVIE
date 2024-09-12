@@ -188,7 +188,7 @@ export default function HomeTicketsSold() {
   return (
     <div className="px-10">
       <div>
-        <h1 className="text-center text-5xl my-2">Vé Đã Bán Theo Ngày</h1>
+        <h1 className="text-center text-4xl my-2">Vé Đã Bán Theo Ngày</h1>
 
         <Row className="mb-4" justify="center">
           <Col>
@@ -224,7 +224,50 @@ export default function HomeTicketsSold() {
         </Row>
       </div>
 
-      <h1 className="text-center text-5xl my-2">Doanh Thu Bán Vé Của Web</h1>
+      <div className="mt-10">
+        <h4 className="text-center text-4xl">
+          Doanh Thu Trong Tháng {selectedMonth}
+        </h4>
+        <div className="my-5 text-center">
+          <label htmlFor="month" className="mr-2 ml-4 ">
+            Chọn Tháng:
+          </label>
+          <select id="month" value={selectedMonth} onChange={handleMonthChange}>
+            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+              <option key={month} value={month}>
+                Tháng {month}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* Biểu đồ doanh thu theo ngày */}
+        <Line
+          data={{
+            labels: dataByDay.map((_, index) => `Ngày ${index + 1}`),
+            datasets: [
+              {
+                label: "Doanh Thu Theo Ngày",
+                data: dataByDay,
+                fill: false,
+                backgroundColor: "#742774",
+                borderColor: "#742774",
+              },
+            ],
+          }}
+          options={{
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          }}
+        />
+      </div>
+
+      <h1 className="text-center text-4xl my-2">
+        Doanh Thu Bán Vé Của Web Theo Năm
+      </h1>
       <div className="text-center mt-4">
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded mr-2 mb-2"
@@ -292,46 +335,6 @@ export default function HomeTicketsSold() {
           },
         }}
       />
-      <div className="mt-10">
-        <h4 className="text-center text-3xl">
-          Doanh Thu Theo Ngày Trong Tháng {selectedMonth}
-        </h4>
-        <div className="my-5 text-center">
-          <label htmlFor="month" className="mr-2 ml-4 ">
-            Chọn Tháng:
-          </label>
-          <select id="month" value={selectedMonth} onChange={handleMonthChange}>
-            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-              <option key={month} value={month}>
-                Tháng {month}
-              </option>
-            ))}
-          </select>
-        </div>
-        {/* Biểu đồ doanh thu theo ngày */}
-        <Line
-          data={{
-            labels: dataByDay.map((_, index) => `Ngày ${index + 1}`),
-            datasets: [
-              {
-                label: "Doanh Thu Theo Ngày",
-                data: dataByDay,
-                fill: false,
-                backgroundColor: "#742774",
-                borderColor: "#742774",
-              },
-            ],
-          }}
-          options={{
-            responsive: true,
-            scales: {
-              y: {
-                beginAtZero: true,
-              },
-            },
-          }}
-        />
-      </div>
     </div>
   );
 }

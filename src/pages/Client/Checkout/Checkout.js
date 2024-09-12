@@ -8,7 +8,7 @@ import React, {
 import { useDispatch, useSelector } from "react-redux";
 import style from "../Checkout/Checkout.module.css";
 import "../Checkout/Checkout.css";
-import { Tooltip, Modal, Button } from "antd";
+import { Tooltip, Modal, Button, Input } from "antd";
 import {
   ArrowLeftOutlined,
   DeleteOutlined,
@@ -34,7 +34,9 @@ import {
   removeCombo,
   updateComboQuantity,
 } from "../../../redux/Actions/QuanLyBongNuocAction";
-import { formatPrice } from "../../../utils/formatPrice";
+import { formatDiem, formatPrice } from "../../../utils/formatPrice";
+import { layChiTietNguoiDungAction } from "../../../redux/Actions/QuanLyNguoiDungAction";
+import { useFormik } from "formik";
 
 const { confirm } = Modal;
 export default function Checkout(props) {
@@ -43,6 +45,9 @@ export default function Checkout(props) {
   const socketRef = useRef(null);
   const socket = io.connect(`${DOMAIN_STATIC_FILE}`);
   socketRef.current = socket;
+
+  const [pointsToUse, setPointsToUse] = useState(0); // Số điểm tích lũy muốn dùng
+  const [totalAfterPoints, setTotalAfterPoints] = useState(0); // Tổng tiền sau khi trừ điểm tích lũy
 
   const { id } = props.match.params;
   const dispatch = useDispatch();
@@ -83,7 +88,19 @@ export default function Checkout(props) {
     (state) => state.QuanLyNguoiDungReducer.userLogin
   );
   const phongVe = useSelector((state) => state.QuanLySeatsReducer.phongVe);
+  // Xử ký points
+  const { userEdit } = useSelector((state) => state.QuanLyNguoiDungReducer);
+  useEffect(() => {
+    dispatch(layChiTietNguoiDungAction(userLogin?.id));
+  }, []);
 
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      points: userEdit?.points,
+    },
+  });
+  console.log("Check formik: ", formik);
   const { lstGhe, film } = phongVe;
   const [state, setState] = useState("00:00:00");
 
@@ -111,6 +128,26 @@ export default function Checkout(props) {
 
   // Tổng tiền (vé + combo)
   const totalPrice = totalTicketPrice + totalComboPrice;
+
+  // Tính tổng tiền sau khi trừ điểm tích lũy
+  useEffect(() => {
+    const pointsValue = pointsToUse; // Giả sử mỗi điểm tương đương 1000
+    if (pointsValue > totalPrice) {
+      setTotalAfterPoints(0);
+    } else {
+      setTotalAfterPoints(totalPrice - pointsValue);
+    }
+  }, [pointsToUse, totalPrice]);
+
+  // Xử lý thay đổi số điểm người dùng muốn trừ
+  const handlePointsChange = (e) => {
+    const value = e.target.value;
+    if (value <= userLogin.points) {
+      setPointsToUse(value);
+    } else {
+      alert("Bạn không có đủ điểm tích lũy");
+    }
+  };
 
   useEffect(() => {
     sessionStorage.removeItem("STORE");
@@ -223,6 +260,7 @@ export default function Checkout(props) {
       );
     }
   };
+
   return (
     <div className="grid grid-cols-12 h-screen">
       {/* Main Content */}
@@ -435,14 +473,6 @@ export default function Checkout(props) {
           </div>
 
           <hr className="border-gray-300 dark:border-gray-600" />
-          <div className="flex justify-between">
-            <p className="text-red-600 font-semibold text-xl mr-5">
-              Thành tiền
-            </p>
-            <div className="text-center text-xl font-bold text-green-600">
-              {totalPrice.toLocaleString()} VNĐ
-            </div>
-          </div>
           {/* User Details */}
           <div>
             <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">
@@ -463,6 +493,46 @@ export default function Checkout(props) {
               {userLogin.phoneNumber}
             </p>
           </div>
+          <hr className="border-gray-300 dark:border-gray-600" />
+
+          <div>
+            <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">
+              Điểm tích lũy
+            </p>
+            <p className="text-gray-800 dark:text-white text-xl font-medium">
+              {formatDiem(formik.values.points)}
+            </p>
+          </div>
+
+          {/* Tổng tiền */}
+          <div className="text-center">
+            <div className="flex justify-between">
+              <p className="text-red-600 font-bold text-xl mr-5">Thành tiền</p>
+              <div className="text-center text-xl font-bold text-green-600">
+                {formatPrice(totalPrice)}
+              </div>
+            </div>
+            <div className="mt-2">
+              <label className="block uppercase tracking-wide text-red-600 text-xl; font-bold mb-2">
+                Số điểm muốn trừ
+              </label>
+              <Input
+                type="number"
+                value={pointsToUse}
+                onChange={handlePointsChange}
+                max={userLogin.points}
+                placeholder="Nhập số điểm muốn sử dụng"
+              />
+            </div>
+            <div className="flex justify-between mt-6">
+              <p className="text-red-600 font-bold text-xl mr-5">
+                Tổng tiền sau khi trừ điểm
+              </p>
+              <div className="text-center text-xl font-bold text-green-600">
+                {formatPrice(totalAfterPoints)}
+              </div>
+            </div>
+          </div>
 
           {/* Book Ticket Button */}
           <div
@@ -472,6 +542,9 @@ export default function Checkout(props) {
                   user: userLogin,
                   listCombos: listCombo,
                   listTicket: listGheDangDat,
+                  totalAmount: totalPrice,
+                  totalAfterPoints: totalAfterPoints,
+                  pointsToUse: pointsToUse,
                   idShowTime: props.match.params.id,
                   film: film,
                   email: userLogin.email,
@@ -488,18 +561,6 @@ export default function Checkout(props) {
                   currency: "USD",
                   quantity: 1,
                 }));
-
-                // const thongTinComboDat = {
-                //   user: userLogin,
-                //   listCombos: listCombo,
-                //   idShowTime: props.match.params.id,
-                //   film: film,
-                //   email: userLogin.email,
-                // };
-                // window.sessionStorage.setItem(
-                //   "STORE",
-                //   JSON.stringify(thongTinComboDat)
-                // );
 
                 const comboData = listCombo.map((combo) => ({
                   name: combo.name,

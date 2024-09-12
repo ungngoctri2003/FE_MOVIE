@@ -16,6 +16,7 @@ import { NavLink } from "react-router-dom";
 import { Button, Input, Popconfirm, Table } from "antd";
 import { history } from "../../../App";
 import { DOMAIN_STATIC_FILE } from "../../../utils/Settings/config";
+import { formatPrice } from "../../../utils/formatPrice";
 
 export default function Combos(props) {
   const dispatch = useDispatch();
@@ -80,6 +81,7 @@ export default function Combos(props) {
       dataIndex: "price",
       key: "price",
       sorter: (a, b) => a.price - b.price,
+      render: (text) => formatPrice(text),
       width: "10%",
     },
     {

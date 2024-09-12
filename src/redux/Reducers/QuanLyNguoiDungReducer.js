@@ -17,6 +17,7 @@ const initialState = {
     phoneNumber: "",
     userName: "",
     typeUser: "",
+    points: "",
   },
   listUser: [],
 };

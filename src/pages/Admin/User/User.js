@@ -17,6 +17,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { history } from "../../../App";
 import Export_Excel from "./../../../components/Excel/Export_Excel";
+import { formatDiem } from "../../../utils/formatPrice";
 export default function User(props) {
   const { listUser } = useSelector((state) => state.QuanLyNguoiDungReducer);
   const confirm = (id, status) => {
@@ -51,6 +52,12 @@ export default function User(props) {
     {
       title: "Số Điện Thoại",
       dataIndex: "phoneNumber",
+      width: "15%",
+    },
+    {
+      title: "Điểm Tích Lũy",
+      dataIndex: "points",
+      render: (text) => formatDiem(text),
       width: "15%",
     },
     {

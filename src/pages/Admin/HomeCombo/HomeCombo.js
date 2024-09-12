@@ -185,7 +185,7 @@ export default function HomeCombo() {
   return (
     <div className="px-10">
       <div className="">
-        <h1 className="text-center text-5xl my-2">Combo Đã Bán Theo Ngày</h1>
+        <h1 className="text-center text-4xl my-2">Combo Đã Bán Theo Ngày</h1>
 
         <Row className="mb-4" justify="center">
           <Col>
@@ -221,7 +221,49 @@ export default function HomeCombo() {
         </Row>
       </div>
 
-      <h1 className="text-center text-5xl my-2">Doanh Thu Bán Combo Của Web</h1>
+      {/* Biểu đồ doanh thu theo ngày trong tháng */}
+
+      <div className="mt-10">
+        <h4 className="text-center text-4xl">
+          Doanh Thu Trong Tháng {selectedMonth}
+        </h4>
+        <div className="my-5 text-center">
+          <label htmlFor="month" className="mr-2 ml-4">
+            Chọn Tháng:
+          </label>
+          <select id="month" value={selectedMonth} onChange={handleMonthChange}>
+            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+              <option key={month} value={month}>
+                Tháng {month}
+              </option>
+            ))}
+          </select>
+        </div>
+        <Line
+          data={{
+            labels: Array.from({ length: 31 }, (_, i) => `Ngày ${i + 1}`),
+            datasets: [
+              {
+                label: "Số tiền kiếm được ($)",
+                borderColor: "#3e95cd",
+                backgroundColor: "rgba(62, 149, 205, 0.2)",
+                data: dataByDay,
+                fill: true,
+              },
+            ],
+          }}
+          options={{
+            legend: { display: false },
+            title: {
+              display: true,
+              text: `Doanh Thu Trong Tháng ${selectedMonth}, ${selectedYear}`,
+            },
+          }}
+        />
+      </div>
+      <h1 className="text-center text-4xl my-2">
+        Doanh Thu Bán Combo Của Web Theo Năm
+      </h1>
       <div className="text-center mt-4">
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded mr-2 mb-2"
@@ -299,48 +341,6 @@ export default function HomeCombo() {
           },
         }}
       />
-
-      {/* Biểu đồ doanh thu theo ngày trong tháng */}
-
-      <div className="mt-10">
-        <h4 className="text-center text-3xl">
-          Doanh Thu Theo Ngày Trong Tháng {selectedMonth}
-        </h4>
-        <div className="my-5 text-center">
-          <label htmlFor="month" className="mr-2 ml-4">
-            Chọn Tháng:
-          </label>
-          <select id="month" value={selectedMonth} onChange={handleMonthChange}>
-            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-              <option key={month} value={month}>
-                Tháng {month}
-              </option>
-            ))}
-          </select>
-        </div>
-        <Line
-          data={{
-            labels: Array.from({ length: 31 }, (_, i) => `Ngày ${i + 1}`),
-            datasets: [
-              {
-                label: "Số tiền kiếm được ($)",
-                borderColor: "#3e95cd",
-                backgroundColor: "rgba(62, 149, 205, 0.2)",
-                data: dataByDay,
-                fill: true,
-              },
-            ],
-          }}
-          options={{
-            legend: { display: false },
-            title: {
-              display: true,
-              text: `Doanh Thu Trong Tháng ${selectedMonth}, ${selectedYear}`,
-            },
-          }}
-        />
-      </div>
-
       {/* Các nút xuất báo cáo Excel */}
     </div>
   );

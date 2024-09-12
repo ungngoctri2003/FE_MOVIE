@@ -23,6 +23,7 @@ export default function UserEdit(props) {
       phoneNumber: userEdit.phoneNumber,
       userName: userEdit?.userName,
       typeUser: userEdit?.type_user?.id,
+      points: userEdit?.points,
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -35,6 +36,7 @@ export default function UserEdit(props) {
         })
         .required("Không được trống !"),
       userName: Yup.string().required("Không được trống !"),
+      points: Yup.number().required("Không được trống !"),
     }),
     onSubmit: (values) => {
       const { id } = props.match.params;
@@ -90,6 +92,21 @@ export default function UserEdit(props) {
           />
           {formik.errors.phoneNumber && formik.touched.phoneNumber && (
             <p className="m-0 mt-1 text-red-600">{formik.errors.phoneNumber}</p>
+          )}
+        </div>
+        {/* Points */}
+        <div className="mb-6">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Điểm Thưởng
+          </label>
+          <input
+            name="points"
+            value={formik.values.points}
+            onChange={formik.handleChange}
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+          />
+          {formik.errors.points && formik.touched.points && (
+            <p className="m-0 mt-1 text-red-600">{formik.errors.points}</p>
           )}
         </div>
         {/* Type User */}

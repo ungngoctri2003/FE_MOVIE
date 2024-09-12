@@ -8,6 +8,7 @@ import io from "socket.io-client";
 import Countdown from "react-countdown";
 import { DOMAIN_STATIC_FILE } from "../../utils/Settings/config";
 import { history } from "../../App";
+import { taoPoints } from "../../redux/Actions/QuanLyPointsAction";
 
 export default function Checkout_Success(props) {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function Checkout_Success(props) {
     const data = JSON.parse(sessionStorage.getItem("STORE"));
     dispatch(datVe(data));
     dispatch(taoCombo(data));
+    dispatch(taoPoints(data));
     setTime(Date.now() + 0.3 * 60 * 1000);
   }, []);
 
@@ -46,7 +48,6 @@ export default function Checkout_Success(props) {
               daysInHours
             />
           }
-          S
         </h2>
       </button>
     </div>
